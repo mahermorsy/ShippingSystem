@@ -1,0 +1,119 @@
+﻿@model DtoShippingType
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">@Lables.ShippingTypes</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @* <li class="breadcrumb-item"><a href="#">@Actions.Update</a></li> *@
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-md-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    @{
+                        if (Model.Id == Guid.Empty)
+                        {
+                            <h4 class="card-title">@Actions.AddNew</h4>
+                
+                        }
+                        else
+                        {
+                            <h4 class="card-title">@Actions.Update</h4>
+           
+                        }
+                    }
+                   
+                    <p class="card-description"></p>
+                    <form class="forms-sample" method="post" enctype="multipart/form-data"
+                          asp-area="admin" asp-controller="ShippingType" asp-action="Save" role="form">
+
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@Lables.NameAr</label>
+                            <input asp-for="ShippingTypeAname" type="text" class="form-control" placeholder="@Lables.NameAr">
+                            <span asp-validation-for="ShippingTypeAname" class="text-danger"></span>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="exampleInputUsername1">@Lables.NameEn</label>
+                            <input asp-for="ShippingTypeEname" type="text" class="form-control" placeholder="@Lables.NameEn">
+                            <span asp-validation-for="ShippingTypeEname" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">@Lables.Factor</label>
+                            <input asp-for="ShippingFactor" type="number" class="form-control" placeholder="@Lables.Factor">
+                            <span asp-validation-for="ShippingFactor" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@Actions.Save</button>
+                        <button class="btn btn-light">@Actions.Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+      @*   <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <span id="tbImgName"></span>
+                    <div id="tbImgSrc">
+                        <img src="/Uploads/Categories/@Model.ImageName" style="width:95%; height300px;" />
+                    </div>
+                </div>
+            </div>
+        </div> *@
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        // const Upload = {
+        //     UploadingImages(e) {
+        //         const file = e.target.files[0]; صح، بس تأكد إن الـ input مش multiple
+
+        //         if (!file) return; حماية لو مفيش ملف مختار
+
+        //         const reader = new FileReader(); هنا كنت كاتب Reader بـ R كابيتال، بس تحت استخدمت Reader.result → لازم يكون نفس الحرف
+
+        //         reader.onloadend = () => {
+        //             حفظ الاسم والبيانات
+        //             MediaImageName = file.name;
+
+        //             تصليح الـ slice (كان فيه خطأ: "base64,"+ 7 → لازم 'base64,' + 7)
+        //             MediaImageBase64 = reader.result.slice(reader.result.indexOf('base64,') + 7);
+
+        //             عرض الاسم
+        //             $("#tbImgName").html(MediaImageName);
+
+        //             عرض الصورة كـ preview (تصليح: reader.result مش Reader.result)
+        //             $("#tbImgSrc").html(
+        //                 `<img class="thumbnail" src="${reader.result}"
+        //                       style="width: 200px; height: 300px; border-radius: 5px; border: 1px solid #d9d9d9; padding: 1px;" />`
+        //             );
+        //         };
+
+        //         reader.readAsDataURL(file); بدء القراءة
+        //     }
+        // };
+        //     const Upload = {
+        //         UploadDefaultImg: function(e) {
+        //             const file = e.target.files[0];
+        //             const reader = new FileReader();
+        //             reader.onloadend = () => {
+        //                 CourseMediaImgName = file.name;
+        //                 CourseMediaImgBase64 = reader.result.slice(reader.result.indexOf('base64,') + 7);
+        //                 $("#tbImgName").html(file.name)
+        //                 $("#tbImgSrc").html(`<img class="thumbnail" src = "${reader.result}"  style = "width: 200px;height: 300px;border-radius: 5px;border: 1px solid #d9d9d9;padding: 1px;" />`)
+        //             };
+        //             reader.readAsDataURL(file);
+        //         }
+        //}
+    </script>
+}

@@ -1,0 +1,197 @@
+﻿
+@{
+    var currentArea = ViewContext.RouteData.Values["area"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    var shipmentMenuOpen = currentArea == "admin" && currentController == "Shipment";
+    var displayName = User?.Identity?.IsAuthenticated == true && !string.IsNullOrWhiteSpace(User.Identity.Name)
+        ? User.Identity.Name
+        : "Admin";
+    var configurationMenuOpen = currentArea == "admin" && new[]
+    {
+        "SubscriptionPackages",
+        "ShippingType",
+        "Countries",
+        "Carriers",
+        "Cities",
+        "Settings",
+        "PaymentMethods",
+        "ShippingPackaging"
+    }.Contains(currentController);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/Admin/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Admin/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="~/Admin/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="~/Admin/css/demo_2/style.css">
+    <link rel="stylesheet" href="~/Admin/css/demo_2/shipping-admin-overrides.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="~/Admin/images/favicon.png" />
+
+    @RenderSection("Styles", false)
+
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <a class="navbar-brand brand-logo" href="index.html"><img src="~/Admin/images/logo.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/Admin/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="admin-page-title d-none d-md-flex align-items-center">
+                    <span>Shipping Admin</span>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="~/Admin/images/faces/face1.jpg" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1">@displayName</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-cached me-2 text-success"></i> Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Account/Logout">
+                                <i class="mdi mdi-logout me-2 text-primary"></i> Signout
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-logout d-none d-lg-block">
+                        <a class="nav-link" href="/Account/Logout">
+                            <i class="mdi mdi-power"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item nav-profile">
+                        <a href="#" class="nav-link">
+                            <div class="nav-profile-image">
+                                <img src="~/Admin/images/faces/face1.jpg" alt="profile">
+                                <span class="login-status online"></span>
+                                <!--change to offline or busy as needed-->
+                            </div>
+                            <div class="nav-profile-text d-flex flex-column">
+                                <span class="font-weight-bold mb-2">Shipping Admin</span>
+                                <span class="text-secondary text-small">Operations Panel</span>
+                            </div>
+                            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(shipmentMenuOpen ? "active" : "")" data-bs-toggle="collapse" href="#shipment-management" aria-expanded="@(shipmentMenuOpen.ToString().ToLower())" aria-controls="shipment-management">
+                            <span class="menu-title">Shipment Management</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-truck-delivery menu-icon"></i>
+                        </a>
+                        <div class="collapse @(shipmentMenuOpen ? "show" : "")" id="shipment-management">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentArea == "admin" && currentController == "Shipment" && currentAction == "Index" ? "active" : "")" asp-area="admin" asp-controller="Shipment" asp-action="Index">All Shipments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(string.IsNullOrEmpty(currentArea) && currentController == "Shipments" && currentAction == "CreateShipment" ? "active" : "")" asp-area="" asp-controller="Shipments" asp-action="CreateShipment">Create Shipment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(configurationMenuOpen ? "active" : "")" data-bs-toggle="collapse" href="#configuration-menu" aria-expanded="@(configurationMenuOpen.ToString().ToLower())" aria-controls="configuration-menu">
+                            <span class="menu-title">@Lables.Configrations</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-settings menu-icon"></i>
+                        </a>
+                        <div class="collapse @(configurationMenuOpen ? "show" : "")" id="configuration-menu">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="SubscriptionPackages" asp-action="Index">@Lables.SubscriptionPackage</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="ShippingType" asp-action="Index">@Lables.ShippingTypes</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Countries" asp-action="Index">@Lables.Countries</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Carriers" asp-action="Index">@Lables.Carriers</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Cities" asp-action="Index">@Lables.Cities</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="Settings" asp-action="Index">@Lables.Settings</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="PaymentMethods" asp-action="Index">@Lables.PaymentMethods</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-area="admin" asp-controller="ShippingPackaging" asp-action="Index">@Lables.CreateShippingPackaging</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+            @RenderBody()
+            </div>
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/Admin/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="~/Admin/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/Admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/Admin/js/off-canvas.js"></script>
+    <script src="~/Admin/js/hoverable-collapse.js"></script>
+    <script src="~/Admin/js/misc.js"></script>
+    <script src="~/Admin/js/settings.js"></script>
+    <script src="~/Admin/js/todolist.js"></script>
+    <script src="~/Admin/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="~/Admin/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <script src="~/app/shared/alerts.js"></script>
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

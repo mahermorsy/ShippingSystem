@@ -1,0 +1,54 @@
+﻿@model DTOShippingPackaging
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">@Lables.ShippingPackagingTitle</h3>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            @if (Model.Id == Guid.Empty)
+            {
+                <h4>@Actions.AddNew</h4>
+            }
+            else
+            {
+                <h4>@Actions.Update</h4>
+            }
+
+            <form method="post"
+                  asp-area="admin"
+                  asp-controller="ShippingPackaging"
+                  asp-action="Save">
+
+                <input asp-for="Id" type="hidden" />
+
+                <!-- Arabic Name -->
+                <div class="form-group">
+                    <label>@Lables.NameAr</label>
+                    <input asp-for="ShippingPackagingAname" class="form-control" />
+                    <span asp-validation-for="ShippingPackagingAname" class="text-danger"></span>
+                </div>
+
+                <!-- English Name -->
+                <div class="form-group">
+                    <label>@Lables.NameEn</label>
+                    <input asp-for="ShippingPackagingEname" class="form-control" />
+                    <span asp-validation-for="ShippingPackagingEname" class="text-danger"></span>
+                </div>
+
+                <!-- Country Dropdown -->
+                <button type="submit" class="btn btn-primary">@Actions.Save</button>
+                <a asp-action="Index" class="btn btn-light">@Actions.Cancel</a>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

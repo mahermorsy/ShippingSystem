@@ -1,0 +1,138 @@
+@model DtoShipment
+
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <h1>Shipment Details</h1>
+                <a asp-controller="Home" asp-action="Index" title="Home">Home</a> / Shipment Details
+            </div>
+            <div class="col-12 col-lg-5 text-right">
+                <h4>
+                    We freight to all over the world
+                    The best logistic company, <span>FAST</span> and <span>SAFELY!</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wshipping-content-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <div class="right-block">
+                    <div class="section-title wow fadeInUp">
+                        <h2>Shipment Details</h2>
+                        <p>Review shipment timing, package data, sender information, and receiver delivery details.</p>
+                    </div>
+
+                    <div id="shipmentDetailsAlert" class="track-status wow fadeInUp">Loading shipment details...</div>
+
+                    <div id="shipmentDetailsContent" class="shipment-overview-panel wow fadeInUp d-none">
+                        <div class="shipment-overview-head">
+                            <h3 class="heading3-border text-uppercase mb-0">Shipment Overview</h3>
+                            <span id="shipmentTrackingBadge" class="shipment-track-badge">Tracking: Loading...</span>
+                        </div>
+
+                        <div class="page-accordion accordion-style2" id="shipmentAccordion">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>
+                                        <a data-toggle="collapse" href="#shipmentInfoCollapse" aria-expanded="true">
+                                            <i class="fa fa-truck"></i> Shipment Info
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="shipmentInfoCollapse" class="collapse show" data-parent="#shipmentAccordion">
+                                    <div class="card-block">
+                                        <div class="row shipment-detail-grid">
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Shipping Date</span><strong id="shipmentShippingDate">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Delivery Date</span><strong id="shipmentDeliveryDate">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Shipping Type</span><strong id="shipmentShippingTypeId">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Packaging</span><strong id="shipmentShippingPackagingId">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Payment</span><strong id="shipmentPaymentMethodId">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Weight</span><strong id="shipmentWeight">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Dimensions</span><strong id="shipmentDimensions">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Package Value</span><strong id="shipmentPackageValue">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Shipping Rate</span><strong id="shipmentShippingRate">-</strong></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>
+                                        <a class="collapsed" data-toggle="collapse" href="#shipmentSenderCollapse" aria-expanded="false">
+                                            <i class="fa fa-user"></i> Sender
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="shipmentSenderCollapse" class="collapse" data-parent="#shipmentAccordion">
+                                    <div class="card-block">
+                                        <div class="row shipment-detail-grid">
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Name</span><strong id="shipmentSenderName">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Email</span><strong id="shipmentSenderEmail">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Phone</span><strong id="shipmentSenderPhone">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Contact</span><strong id="shipmentSenderContact">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Address</span><strong id="shipmentSenderAddress">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Address Details</span><strong id="shipmentSenderAddressDetails">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Other Address</span><strong id="shipmentSenderOtherAddress">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Postal Code</span><strong id="shipmentSenderPostalCode">-</strong></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>
+                                        <a class="collapsed" data-toggle="collapse" href="#shipmentReceiverCollapse" aria-expanded="false">
+                                            <i class="fa fa-map-marker-alt"></i> Receiver
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="shipmentReceiverCollapse" class="collapse" data-parent="#shipmentAccordion">
+                                    <div class="card-block">
+                                        <div class="row shipment-detail-grid">
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Name</span><strong id="shipmentReceiverName">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Email</span><strong id="shipmentReceiverEmail">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Phone</span><strong id="shipmentReceiverPhone">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Address</span><strong id="shipmentReceiverAddress">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Address Details</span><strong id="shipmentReceiverAddressDetails">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Other Address</span><strong id="shipmentReceiverOtherAddress">-</strong></div></div>
+                                            <div class="col-12 col-md-6"><div class="shipment-detail-item"><span>Postal Code</span><strong id="shipmentReceiverPostalCode">-</strong></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-3">
+                <div class="right-block left-menu menu-with-title wow fadeInUp">
+                    <h4 class="title-with-bg">Quick Links</h4>
+                    <ul>
+                        <li class="active"><a asp-controller="Shipments" asp-action="List" title="Back to shipment history">Shipment History</a></li>
+                        <li><a asp-controller="Shipments" asp-action="CreateShipment" title="Create shipment">Create Shipment</a></li>
+                    </ul>
+                </div>
+                <div class="right-block wow fadeInUp">
+                    <a asp-controller="Shipments" asp-action="List" class="order-list-button">Back To Your Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Modules/AppHelper.js"></script>
+    <script src="~/Modules/ApiClient.js"></script>
+    <script src="~/Modules/ShipmentsService.js" asp-append-version="true"></script>
+    <script src="~/Modules/shipments-show.js" asp-append-version="true"></script>
+}
+

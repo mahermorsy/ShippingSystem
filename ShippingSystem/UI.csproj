@@ -1,0 +1,54 @@
+﻿
+
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Modules\AdminShipmentEdit.js" />
+    <Content Remove="wwwroot\Modules\CarriersService.js" />
+    <Content Remove="wwwroot\Modules\citiesService.js" />
+    <Content Remove="wwwroot\Modules\countriesService.js" />
+    <Content Remove="wwwroot\Modules\paymentMethodsService.js" />
+    <Content Remove="wwwroot\Modules\shippingPackagingService.js" />
+    <Content Remove="wwwroot\Modules\shippingTypesService.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Models\ErrorViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Modules\AdminShipmentEdit.js" />
+    <None Include="wwwroot\Modules\CarriersService.js" />
+    <None Include="wwwroot\Modules\paymentMethodsService.js" />
+    <None Include="wwwroot\Modules\citiesService.js" />
+    <None Include="wwwroot\Modules\shippingPackagingService.js" />
+    <None Include="wwwroot\Modules\countriesService.js" />
+    <None Include="wwwroot\Modules\shippingTypesService.js" />
+    <None Include="wwwroot\Modules\ApiClient.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppResoursces\AppResoursces.csproj" />
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+    <ProjectReference Include="..\Config\Config.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\UI\WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

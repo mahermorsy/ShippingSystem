@@ -1,0 +1,62 @@
+@model DTOLoginUser
+  
+<!-- Breadcroumbs start -->
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <h1>Customer Login</h1>
+                <a href="index.html" title="Home">Home</a> / Customer Login
+            </div>
+            <div class="col-12 col-lg-5 text-right">
+                <h4>
+                    We freight to all over the world
+                    The best logistic company, <span>FAST</span> and <span>SAFELY!</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcroumbs end -->
+<!-- Customer login Start -->
+<div class="wshipping-content-block">
+    <div class="container">
+        <div class="customer-login">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="customer-login-left">
+                        <div class="login-icon"><i class="fa fa-lock"></i></div>
+                        <h4>Welcome To your account</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <a asp-controller="Account" asp-action="Register">@Lables.Registration</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="customer-login-block">
+                        <h2>Login To Your Account</h2>
+                        <form asp-controller="Account" asp-action="Login" method="post">
+                        
+                            <div class="form-group">
+                                <label>@Lables.Email    :</label>
+                                <input type="text" asp-for="UserName" class="form-control" placeholder="@Lables.Enterusername" />
+                                <span asp-validation-for="UserName" class="text-danger"></span> 
+                            </div>
+                            <div class="form-group">
+                                <label>@Lables.Password:</label>
+                                <input asp-for="Password"
+                                       type="password" class="form-control" placeholder="@Lables.EnterPassword" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="remember" id="remember" class="css-checkbox" />
+                                <label for="remember" class="css-label">@Lables.RememberMe</label>
+                                <a href="#" title="" class="forgot-pass">@Lables.ForgotPassword</a>
+                            </div>
+                            <button type="submit" class="btn btn-submit">@Lables.Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+@model PagedResult<DtoShipment>
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">Shipment History</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb"></ol>
+        </nav>
+        <a asp-controller="Shipments" asp-action="CreateShipment" asp-area="" class="btn btn-primary btn-fw">
+            <i class="mdi mdi-plus"></i> Create New Shipment
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Shipments</h4>
+            <div class="table-responsive shipment-list-wrap">
+                <table class="table table-hover shipment-admin-table shipment-index-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tracking</th>
+                            <th>Parties</th>
+                            <th>Dates</th>
+                            <th>Package</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                            <th class="shipment-actions-col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.Items == null || !Model.Items.Any())
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center">No shipments found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var rowStart = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+
+                            foreach (var item in Model.Items.Select((shipment, index) => new { shipment, index }))
+                            {
+                                <tr>
+                                    <td>@(rowStart + item.index)</td>
+                                    <td>
+                                        <strong>@(item.shipment.TrackingNumber?.ToString("N0") ?? "N/A")</strong>
+                                        <small class="d-block text-truncate shipment-muted-line">@item.shipment.Id</small>
+                                    </td>
+                                    <td>
+                                        <div class="shipment-party">
+                                            <span class="shipment-party-label">From</span>
+                                            <strong>@(item.shipment.Sender?.SenderName ?? "N/A")</strong>
+                                            <small>@(item.shipment.Sender?.Phone ?? "")</small>
+                                        </div>
+                                        <div class="shipment-party mt-2">
+                                            <span class="shipment-party-label">To</span>
+                                            <strong>@(item.shipment.Receiver?.ReceiverName ?? "N/A")</strong>
+                                            <small>@(item.shipment.Receiver?.Phone ?? "")</small>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span>@item.shipment.ShippingDate.ToString("dd MMM yyyy")</span>
+                                        <small class="d-block shipment-muted-line">Delivery @item.shipment.DeliveryDate.ToString("dd MMM yyyy")</small>
+                                    </td>
+                                    <td>
+                                        <span>@item.shipment.Weight.ToString("N2") kg</span>
+                                        <small class="d-block shipment-muted-line">@($"{item.shipment.Width:N2} x {item.shipment.Height:N2} x {item.shipment.Length:N2}")</small>
+                                    </td>
+                                    <td>
+                                        <span>@item.shipment.PackageValue.ToString("N2") SAR</span>
+                                        <strong class="d-block text-success">@item.shipment.ShippingRate.ToString("N2") SAR</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">@(item.shipment.CurrentState.ToString() ?? "N/A")</span>
+                                    </td>
+                                    <td class="shipment-actions-col">
+                                        <div class="shipment-actions">
+                                            <a asp-area="admin" asp-controller="Shipment" asp-action="Show" asp-route-ShId="@item.shipment.Id" class="btn btn-outline-info btn-sm">View</a>
+                                            <a asp-area="admin" asp-controller="Shipment" asp-action="Edit" asp-route-ShId="@item.shipment.Id" class="btn btn-outline-primary btn-sm">Edit</a>
+                                            <a asp-area="admin" asp-controller="Shipment" asp-action="Delete" asp-route-ShId="@item.shipment.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model != null)
+            {
+                var totalPages = Math.Max(1, Model.TotalPages);
+
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link" asp-area="admin" asp-controller="Shipment" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous</a>
+                        </li>
+
+                        @for (var pageno = 1; pageno <= totalPages; pageno++)
+                        {
+                            <li class="page-item @(pageno == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" asp-area="admin" asp-controller="Shipment" asp-action="Index" asp-route-pageNumber="@pageno">@pageno</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                            <a class="page-link" asp-area="admin" asp-controller="Shipment" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber + 1)">Next</a>
+                        </li>
+                    </ul>
+                    <small class="text-muted">Page @Model.PageNumber of @totalPages</small>
+                </div>
+            }
+        </div>
+    </div>
+</div>

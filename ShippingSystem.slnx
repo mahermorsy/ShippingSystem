@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="AppResoursces/AppResoursces.csproj" Id="f9e4a22a-f4a2-4c3c-9065-8ed8262c5b66" />
+  <Project Path="BusinessLayer/BusinessLayer.csproj" />
+  <Project Path="Config/Config.csproj" Id="ba037e94-f0ad-4993-8b9b-452ca4ce2e8a" />
+  <Project Path="DataAccessLayer/DataAccessLayer.csproj" />
+  <Project Path="Domains/Domains.csproj" />
+  <Project Path="ShippingSystem/UI.csproj" />
+  <Project Path="UI/WebApi.csproj" />
+</Solution>

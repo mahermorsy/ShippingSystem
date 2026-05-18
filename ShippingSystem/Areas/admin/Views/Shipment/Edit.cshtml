@@ -1,0 +1,387 @@
+@model DtoShipment
+@{
+    var shId = ViewBag.ShipmentId?.ToString() ?? "";
+}
+
+<div class="content-wrapper">
+
+    <div class="page-header">
+        <h3 class="page-title">
+            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-pencil"></i>
+            </span>
+            Edit Shipment
+        </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-area="admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-area="admin" asp-controller="Shipment" asp-action="Index">Shipments</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- ===== Edit Form Card ===== -->
+    <div class="card mb-4" id="ShipmentEditCard">
+        <div class="card-body">
+
+            <div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
+                <div>
+                    <h5 class="mb-1">Shipment Details</h5>
+                    <span id="TrackingBadge" class="badge bg-secondary">Loading&hellip;</span>
+                </div>
+                <div class="ms-auto">
+                    <small id="AdminEditStatus" class="text-muted">Loading shipment data&hellip;</small>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- SENDER -->
+                <div class="col-md-6">
+                    <h6 class="edit-section-label"><i class="mdi mdi-account-arrow-right me-1"></i> Sender</h6>
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <label class="form-label">Country <span class="text-danger">*</span></label>
+                            <select id="SenderCountryId" class="form-select form-select-sm edit-field">
+                                <option value="">Select country</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">City <span class="text-danger">*</span></label>
+                            <select id="SenderCityId" class="form-select form-select-sm edit-field">
+                                <option value="">Select city</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
+                            <input id="SenderName" type="text" class="form-control form-control-sm edit-field" placeholder="Full name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Contact</label>
+                            <input id="SenderContact" type="text" class="form-control form-control-sm edit-field" placeholder="Contact person">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                            <input id="SenderEmail" type="email" class="form-control form-control-sm edit-field" placeholder="email@example.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone <span class="text-danger">*</span></label>
+                            <input id="SenderPhone" type="text" class="form-control form-control-sm edit-field" placeholder="+1234567890">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <input id="SenderAddress" type="text" class="form-control form-control-sm edit-field" placeholder="Street address">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address Details</label>
+                            <input id="SenderAddressDetails" type="text" class="form-control form-control-sm edit-field" placeholder="Apt, suite, floor…">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Other Address</label>
+                            <input id="SenderOtherAddress" type="text" class="form-control form-control-sm edit-field">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Postal Code</label>
+                            <input id="SenderPostalCode" type="text" class="form-control form-control-sm edit-field">
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end pb-1">
+                            <div class="form-check">
+                                <input id="SenderIsDefault" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="SenderIsDefault">Default Address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECEIVER -->
+                <div class="col-md-6">
+                    <h6 class="edit-section-label"><i class="mdi mdi-account-arrow-left me-1"></i> Receiver</h6>
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <label class="form-label">Country <span class="text-danger">*</span></label>
+                            <select id="ReceiverCountryId" class="form-select form-select-sm edit-field">
+                                <option value="">Select country</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">City <span class="text-danger">*</span></label>
+                            <select id="ReceiverCityId" class="form-select form-select-sm edit-field">
+                                <option value="">Select city</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Name <span class="text-danger">*</span></label>
+                            <input id="ReceiverName" type="text" class="form-control form-control-sm edit-field" placeholder="Full name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                            <input id="ReceiverEmail" type="email" class="form-control form-control-sm edit-field" placeholder="email@example.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone <span class="text-danger">*</span></label>
+                            <input id="ReceiverPhone" type="text" class="form-control form-control-sm edit-field" placeholder="+1234567890">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Postal Code</label>
+                            <input id="ReceiverPostalCode" type="text" class="form-control form-control-sm edit-field">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <input id="ReceiverAddress" type="text" class="form-control form-control-sm edit-field" placeholder="Street address">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address Details</label>
+                            <input id="ReceiverAddressDetails" type="text" class="form-control form-control-sm edit-field" placeholder="Apt, suite, floor…">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Other Address</label>
+                            <input id="ReceiverOtherAddress" type="text" class="form-control form-control-sm edit-field">
+                        </div>
+                        <div class="col-12 d-flex align-items-end pb-1">
+                            <div class="form-check">
+                                <input id="ReceiverIsDefault" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="ReceiverIsDefault">Default Address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="edit-divider my-4">
+
+            <!-- Package & Shipping -->
+            <h6 class="edit-section-label"><i class="mdi mdi-package-variant me-1"></i> Package &amp; Shipping</h6>
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Weight (kg) <span class="text-danger">*</span></label>
+                    <input id="Weight" type="number" step="0.01" min="0.01" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Length (cm) <span class="text-danger">*</span></label>
+                    <input id="Length" type="number" step="0.01" min="0.01" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Width (cm) <span class="text-danger">*</span></label>
+                    <input id="Width" type="number" step="0.01" min="0.01" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Height (cm) <span class="text-danger">*</span></label>
+                    <input id="Height" type="number" step="0.01" min="0.01" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Declared Value <span class="text-danger">*</span></label>
+                    <input id="PackageValue" type="number" step="0.01" min="0.01" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label class="form-label">Shipping Rate</label>
+                    <input id="ShippingRate" type="number" step="0.01" class="form-control form-control-sm edit-field" placeholder="Auto-calculated">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Packaging</label>
+                    <select id="ShippingPackagingId" class="form-select form-select-sm edit-field">
+                        <option value="">Select packaging</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Shipping Type <span class="text-danger">*</span></label>
+                    <select id="ShippingTypeId" class="form-select form-select-sm edit-field">
+                        <option value="">Select type</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Payment Method</label>
+                    <select id="PaymentMethodId" class="form-select form-select-sm edit-field">
+                        <option value="">Select method</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Carrier</label>
+                    <select id="CarrierId" class="form-select form-select-sm edit-field">
+                        <option value="">Select carrier</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Shipping Date <span class="text-danger">*</span></label>
+                    <input id="ShippingDate" type="datetime-local" class="form-control form-control-sm edit-field">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Delivery Date <span class="text-danger">*</span></label>
+                    <input id="DeliveryDate" type="datetime-local" class="form-control form-control-sm edit-field">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4 gap-2">
+                <a asp-area="admin" asp-controller="Shipment" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to List
+                </a>
+                <button id="AdminSaveShipmentBtn" class="btn btn-sm btn-primary" disabled>
+                    <span id="AdminSaveSpinner" class="spinner-border spinner-border-sm me-1 d-none" role="status"></span>
+                    Save Changes
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== Status Change Card ===== -->
+    <div class="card mb-4" id="StatusChangeCard">
+        <div class="card-body">
+            <h6 class="edit-section-label mb-3"><i class="mdi mdi-swap-horizontal me-1"></i> Change Status</h6>
+            <div class="d-flex flex-wrap gap-3 align-items-end">
+                <div>
+                    <label class="form-label mb-1">New Status</label>
+                    <select id="NewStatusSelect" class="form-select form-select-sm edit-field" style="min-width:200px;">
+                        <option value="">-- Select new status --</option>
+                        <option value="2">Approved</option>
+                        <option value="7">Cancelled</option>
+                    </select>
+                </div>
+                <button id="ApplyStatusBtn" class="btn btn-sm btn-outline-primary">
+                    <i class="mdi mdi-check me-1"></i> Apply
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="card shipment-status-tracker mb-4" id="ShipmentStatusTracker">
+        <div class="card-body">
+            <div class="tracker-top-bar"></div>
+            <div class="tracker-inner">
+
+                <div class="tracker-header">
+                    <i class="mdi mdi-truck-delivery me-2" style="color:#8b5cf6;font-size:1.2rem;"></i>
+                    <h5>Shipment Status</h5>
+                    <span class="ms-auto badge bg-secondary" id="TrackerStatusBadge">Loading&hellip;</span>
+                </div>
+
+                <div class="tracker-steps" id="TrackerSteps">
+
+                    <div class="tracker-step" id="tstep-0">
+                        <div class="step-node"><i class="mdi mdi-package-variant-closed"></i></div>
+                        <div class="step-info">
+                            <span class="step-title">Created</span>
+                            <span class="step-date" id="tdate-0"></span>
+                        </div>
+                    </div>
+                    <div class="tracker-connector" id="tconn-1"></div>
+
+                    <div class="tracker-step" id="tstep-2">
+                        <div class="step-node"><i class="mdi mdi-check-circle-outline"></i></div>
+                        <div class="step-info">
+                            <span class="step-title">Approved</span>
+                            <span class="step-date" id="tdate-2"></span>
+                        </div>
+                    </div>
+                    <div class="tracker-connector" id="tconn-2"></div>
+
+                    <div class="tracker-step" id="tstep-3">
+                        <div class="step-node"><i class="mdi mdi-package-variant"></i></div>
+                        <div class="step-info">
+                            <span class="step-title">Ready for Shipment</span>
+                            <span class="step-date" id="tdate-3"></span>
+                        </div>
+                    </div>
+                    <div class="tracker-connector" id="tconn-3"></div>
+
+                    <div class="tracker-step" id="tstep-4">
+                        <div class="step-node"><i class="mdi mdi-truck-fast"></i></div>
+                        <div class="step-info">
+                            <span class="step-title">Shipped</span>
+                            <span class="step-date" id="tdate-4"></span>
+                        </div>
+                    </div>
+                    <div class="tracker-connector" id="tconn-4"></div>
+
+                    <div class="tracker-step" id="tstep-5">
+                        <div class="step-node"><i class="mdi mdi-check-all"></i></div>
+                        <div class="step-info">
+                            <span class="step-title">Delivered</span>
+                            <span class="step-date" id="tdate-5"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tracker-special-banner d-none" id="TrackerSpecialBanner">
+                    <i class="mdi" id="TrackerSpecialIcon"></i>
+                    <span id="TrackerSpecialText"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Modules/AppHelper.js" asp-append-version="true"></script>
+    <script src="~/Modules/ApiClient.js" asp-append-version="true"></script>
+    <script src="~/Modules/countriesService.js" asp-append-version="true"></script>
+    <script src="~/Modules/citiesService.js" asp-append-version="true"></script>
+    <script src="~/Modules/shippingTypesService.js" asp-append-version="true"></script>
+    <script src="~/Modules/shippingPackagingService.js" asp-append-version="true"></script>
+    <script src="~/Modules/paymentMethodsService.js" asp-append-version="true"></script>
+    <script src="~/Modules/CarriersService.js" asp-append-version="true"></script>
+    <script src="~/Modules/ShipmentsService.js" asp-append-version="true"></script>
+    <script src="~/Modules/adminshipmentedit.js" asp-append-version="true"></script>
+    <script>
+        const SHIPMENT_ID = '@shId';
+        const USER_ROLE = '@(ViewBag.UserRole ?? "")';
+
+        const ShipmentStatusTracker = {
+            flow: [0, 2, 3, 4, 5],
+            specialStates: {
+                1: { label: 'This shipment has been Deleted',   icon: 'mdi-delete-circle'   },
+                6: { label: 'This shipment has been Returned',  icon: 'mdi-keyboard-return' },
+                7: { label: 'This shipment has been Cancelled', icon: 'mdi-close-circle'    }
+            },
+            statusMeta: {
+                0: { label: 'Created',            badge: 'bg-primary'           },
+                1: { label: 'Deleted',            badge: 'bg-danger'            },
+                2: { label: 'Approved',           badge: 'bg-info'              },
+                3: { label: 'Ready for Shipment', badge: 'bg-warning text-dark' },
+                4: { label: 'Shipped',            badge: 'bg-info'              },
+                5: { label: 'Delivered',          badge: 'bg-success'           },
+                6: { label: 'Returned',           badge: 'bg-danger'            },
+                7: { label: 'Cancelled',          badge: 'bg-danger'            }
+            },
+            render: function (currentState) {
+                const meta = this.statusMeta[currentState] ?? { label: 'Unknown', badge: 'bg-secondary' };
+                const badge = document.getElementById('TrackerStatusBadge');
+                if (badge) { badge.textContent = meta.label; badge.className = `ms-auto badge ${meta.badge}`; }
+
+                const special = this.specialStates[currentState];
+                if (special) {
+                    const banner = document.getElementById('TrackerSpecialBanner');
+                    if (banner) {
+                        document.getElementById('TrackerSpecialIcon').className = `mdi ${special.icon}`;
+                        document.getElementById('TrackerSpecialText').textContent = special.label;
+                        banner.classList.remove('d-none');
+                    }
+                    return;
+                }
+
+                const idx = this.flow.indexOf(currentState);
+                this.flow.forEach((state, i) => {
+                    const step = document.getElementById(`tstep-${state}`);
+                    if (!step) return;
+                    step.classList.remove('ts-completed', 'ts-active', 'ts-special');
+                    if (i < idx)   step.classList.add('ts-completed');
+                    if (i === idx) step.classList.add('ts-active');
+                });
+                for (let c = 1; c <= 4; c++) {
+                    const conn = document.getElementById(`tconn-${c}`);
+                    if (!conn) continue;
+                    conn.classList.remove('ts-completed', 'ts-active');
+                    if (c < idx)   conn.classList.add('ts-completed');
+                    if (c === idx) conn.classList.add('ts-active');
+                }
+            }
+        };
+    </script>
+
+}

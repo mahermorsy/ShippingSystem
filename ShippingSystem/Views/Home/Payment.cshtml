@@ -1,0 +1,80 @@
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+@{
+    var payPalClientId = Configuration["PayPal:ClientId"];
+}
+
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <h1>Payment</h1>
+                <a asp-controller="Home" asp-action="Index" title="Home">@Lables.Home</a> / Payment
+            </div>
+            <div class="col-12 col-lg-5 text-right">
+                <h4>Complete a test payment before attaching it to a shipment.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wshipping-content-block shipping-block">
+    <div class="container">
+        <h2 class="heading2-border mt0">Complete payment</h2>
+
+        <div class="row">
+            <div class="col-12 col-lg-5">
+                <div class="shipping-form-block p-4">
+                    <h3 class="mb-3">Order summary</h3>
+                    <div class="shipping-form">
+                        <div class="form-group">
+                            <label>Item</label>
+                            <input type="text" id="PaymentItemName" class="form-control" value="Shipping Service" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" id="PaymentItemDescription" class="form-control" value="Temporary shipment payment" />
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" id="PaymentAmount" class="form-control" min="1" step="0.01" value="25.00" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input type="number" id="PaymentQuantity" class="form-control" min="1" step="1" value="1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-7">
+                <div class="shipping-form-block p-4">
+                    <h3 class="mb-3">Pay with PayPal</h3>
+                    <div id="paypal-button-container"></div>
+                    <p id="paypal-result-message" class="mt-3"></p>
+                    <pre id="paypal-debug-output" class="mt-3 p-3 bg-light" style="display:none; white-space:pre-wrap;"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Modules/AppHelper.js"></script>
+    <script src="~/Modules/ApiClient.js"></script>
+    <script>
+        window.paymentTestData = {
+            currency: "USD"
+        };
+    </script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=@payPalClientId&currency=USD&components=buttons&enable-funding=paylater,card"
+        data-sdk-integration-source="shipping-system-payment-test"></script>
+    <script src="~/Modules/payment-test.js" asp-append-version="true"></script>
+}

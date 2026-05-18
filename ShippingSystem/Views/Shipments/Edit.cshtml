@@ -1,0 +1,429 @@
+﻿@model DtoShipment
+
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <h1>Edit Shipment</h1>
+                <a asp-controller="Home" asp-action="Index" title="Home">Home</a> / Edit Shipment
+            </div>
+            <div class="col-12 col-lg-5 text-right">
+                <h4>
+                    Update your shipment details with confidence.
+                    We keep your delivery <span>FAST</span> and <span>SAFE!</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wshipping-content-block shipping-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <h2 class="heading2-border mt0">Edit Shipment</h2>
+                <p id="EditShipmentStatus" class="text-muted mb-4">Loading shipment data...</p>
+
+                <div class="shipping-form-block">
+                    <form id="EditShipmentForm" class="steps" accept-charset="UTF-8">
+                        <ul id="progressbar">
+                            <li class="active">Where From</li>
+                            <li>Where Going</li>
+                            <li>What</li>
+                            <li>How</li>
+                            <li>Payment</li>
+                            <li>Review</li>
+                            <li>Complete</li>
+                        </ul>
+
+                        <fieldset>
+                            <h2 class="fs-title">Update sender details</h2>
+                            <h3 class="fs-subtitle">* Indicates required field</h3>
+
+                            <div class="shipping-form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Country<sup>*</sup></label>
+                                            <select id="SenderCountryId" class="form-control" required></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>City<sup>*</sup></label>
+                                            <select id="SenderCityId" class="form-control" required></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Company or Name<sup>*</sup></label>
+                                            <input type="text" id="SenderName" class="form-control" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Contact</label>
+                                            <input type="text" id="SenderContact" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>E-mail<sup>*</sup></label>
+                                            <input type="email" id="SenderEmail" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Phone<sup>*</sup></label>
+                                            <input type="text" id="SenderPhone" class="form-control" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Address<sup>*</sup></label>
+                                            <input type="text" id="SenderAddress" class="form-control" placeholder="Street Address" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Address Details</label>
+                                            <input type="text" id="SenderAddressDetails" class="form-control" placeholder="Apartment, suite, floor..." />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Other Address</label>
+                                            <input type="text" id="SenderOtherAddress" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Postal Code</label>
+                                            <input type="text" id="SenderPostalCode" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="slide-label">Use this as my default address</label>
+                                            <div class="slide-redio">
+                                                <input type="checkbox" id="SenderIsDefault" />
+                                                <label for="SenderIsDefault"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                            <a asp-controller="Shipments" asp-action="List" class="action-button btn-red text-center">Cancel</a>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="fs-title">Update receiver details</h2>
+                            <h3 class="fs-subtitle">* Indicates required field</h3>
+
+                            <div class="shipping-form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Country<sup>*</sup></label>
+                                            <select id="ReceiverCountryId" class="form-control" required></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>City<sup>*</sup></label>
+                                            <select id="ReceiverCityId" class="form-control" required></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Company or Name<sup>*</sup></label>
+                                            <input type="text" id="ReceiverName" class="form-control" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>E-mail<sup>*</sup></label>
+                                            <input type="email" id="ReceiverEmail" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Phone<sup>*</sup></label>
+                                            <input type="text" id="ReceiverPhone" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Postal Code</label>
+                                            <input type="text" id="ReceiverPostalCode" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Address<sup>*</sup></label>
+                                            <input type="text" id="ReceiverAddress" class="form-control" placeholder="Street Address" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Address Details</label>
+                                            <input type="text" id="ReceiverAddressDetails" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Other Address</label>
+                                            <input type="text" id="ReceiverOtherAddress" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="slide-label">Use this as default receiver address</label>
+                                            <div class="slide-redio">
+                                                <input type="checkbox" id="ReceiverIsDefault" />
+                                                <label for="ReceiverIsDefault"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="previous" class="previous action-button" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                            <a asp-controller="Shipments" asp-action="List" class="action-button btn-red text-center">Cancel</a>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="fs-title">Update package details</h2>
+                            <h3 class="fs-subtitle">* Indicates required field</h3>
+
+                            <div class="shipping-form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-8">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Packaging Type</label>
+                                                    <select id="ShippingPackagingId" class="form-control"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Weight<sup>*</sup></label>
+                                                    <div class="input-comment">
+                                                        <input type="number" step="0.01" id="Weight" min="0.01" max="1000" class="form-control" required />
+                                                        <span class="field-comment">kg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Length<sup>*</sup></label>
+                                                    <input type="number" step="0.01" id="Length" min="0.01" max="500" class="form-control" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Width<sup>*</sup></label>
+                                                    <input type="number" step="0.01" id="Width" min="0.01" max="500" class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Height<sup>*</sup></label>
+                                                    <input type="number" step="0.01" id="Height" min="0.01" max="500" class="form-control" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Declared Value<sup>*</sup></label>
+                                                    <input type="number" step="0.01" id="PackageValue" min="0.01" max="500000" class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="what-package">
+                                            <img src="~/assets/images/package.jpg" alt="Package" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="previous" class="previous action-button" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                            <a asp-controller="Shipments" asp-action="List" class="action-button btn-red text-center">Cancel</a>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="fs-title">Update shipping options</h2>
+                            <h3 class="fs-subtitle">* Indicates required field</h3>
+
+                            <div class="shipping-form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Shipping Date<sup>*</sup></label>
+                                            <input type="datetime-local" id="ShippingDate" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Delivery Date<sup>*</sup></label>
+                                            <input type="datetime-local" id="DeliveryDate" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Shipping Type<sup>*</sup></label>
+                                            <select id="ShippingTypeId" class="form-control" required></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="previous" class="previous action-button" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                            <a asp-controller="Shipments" asp-action="List" class="action-button btn-red text-center">Cancel</a>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="fs-title">Update payment method</h2>
+                            <h3 class="fs-subtitle">* Indicates required field</h3>
+
+                            <div class="shipping-form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Payment Method</label>
+                                            <select id="PaymentMethodId" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="previous" class="previous action-button" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                            <a asp-controller="Shipments" asp-action="List" class="action-button btn-red text-center">Cancel</a>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="fs-title">Review your updates</h2>
+
+                            <div class="shipping-form">
+                                <div class="review">
+                                    <h3>Review Shipment</h3>
+                                    <p>Please review your updated shipment information before saving.</p>
+                                    <div id="ShipmentReviewSummary" class="mt-4">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <h4>Sender</h4>
+                                                <ul id="SenderReviewList"></ul>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <h4>Receiver</h4>
+                                                <ul id="ReceiverReviewList"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <h4>Shipment Details</h4>
+                                                <ul id="ShipmentDetailsReviewList"></ul>
+                                                <p class="mt-3">
+                                                    <a href="#" id="EditShipmentLink">Need to update anything? Edit shipment data</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="previous" class="previous action-button" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Continue" />
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="shipping-form">
+                                <h1 class="tanks-message">Your shipment is ready to be updated</h1>
+                            </div>
+
+                            <input type="button" id="UpdateShipmentBtn" class="action-button" value="Update Shipment" />
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-3">
+                <div class="right-block left-menu menu-with-title mt60 mb15">
+                    <h4 class="title-with-bg">Quick Links</h4>
+                    <ul>
+                        <li><a asp-controller="Shipments" asp-action="List" title="Shipment history">Shipment History</a></li>
+                        <li class="active"><a href="javascript:void(0)" title="Edit shipment">Edit Shipment</a></li>
+                        <li><a asp-controller="Shipments" asp-action="CreateShipment" title="Create shipment">Create Shipment</a></li>
+                    </ul>
+                </div>
+                <a asp-controller="Shipments" asp-action="List" class="order-list-button">Back To Your Orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Modules/AppHelper.js"></script>
+    <script src="~/Modules/ApiClient.js"></script>
+
+    <script src="~/Modules/countriesService.js"></script>
+    <script src="~/Modules/citiesService.js"></script>
+    <script src="~/Modules/paymentMethodsService.js"></script>
+    <script src="~/Modules/shippingPackagingService.js"></script>
+    <script src="~/Modules/shippingTypesService.js"></script>
+    <script src="~/Modules/ShipmentsService.js" asp-append-version="true"></script>
+    <script src="~/Modules/Edit.js" asp-append-version="true"></script>
+}

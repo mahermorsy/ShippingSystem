@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<!-- EXISTING -->
+	<data name="AccessDenied" xml:space="preserve">
+    <value>تم رفض الوصول</value>
+  </data>
+	<data name="ChangesDiscarded" xml:space="preserve">
+    <value>تم تجاهل التغييرات</value>
+  </data>
+	<data name="ConfirmationPrompt" xml:space="preserve">
+    <value>هل أنت متأكد من المتابعة؟</value>
+  </data>
+	<data name="DeleteFailed" xml:space="preserve">
+    <value>فشل الحذف</value>
+  </data>
+	<data name="DeleteSuccess" xml:space="preserve">
+    <value>تم الحذف بنجاح</value>
+  </data>
+	<data name="InvalidInput" xml:space="preserve">
+    <value>إدخال غير صالح</value>
+  </data>
+	<data name="LoginFailed" xml:space="preserve">
+    <value>فشل تسجيل الدخول</value>
+  </data>
+	<data name="LoginSuccess" xml:space="preserve">
+    <value>تم تسجيل الدخول بنجاح</value>
+  </data>
+	<data name="LogoutSuccess" xml:space="preserve">
+    <value>تم تسجيل الخروج بنجاح</value>
+  </data>
+	<data name="NameArRequired" xml:space="preserve">
+    <value>من فضلك أدخل الاسم باللغة العربي</value>
+  </data>
+	<data name="NameEnRequired" xml:space="preserve">
+    <value>من فضلك أدخل الاسم باللغة الإنجليزية</value>
+  </data>
+	<data name="NameLength" xml:space="preserve">
+    <value>يجب أن يكون الطول بين 5 و100 حرف</value>
+  </data>
+	<data name="RecordNotFound" xml:space="preserve">
+    <value>العنصر غير موجود</value>
+  </data>
+	<data name="SaveFailed" xml:space="preserve">
+    <value>فشل الحفظ. حاول مرة أخرى</value>
+  </data>
+	<data name="SaveSuccess" xml:space="preserve">
+    <value>تم الحفظ بنجاح</value>
+  </data>
+	<data name="SaveSuccessMessage" xml:space="preserve">
+    <value>تم حفظ بياناتك بنجاح</value>
+  </data>
+	<data name="SessionExpired" xml:space="preserve">
+    <value>انتهت صلاحية الجلسة</value>
+  </data>
+	<data name="UnauthorizedAction" xml:space="preserve">
+    <value>إجراء غير مصرح</value>
+  </data>
+	<data name="UpdateFailed" xml:space="preserve">
+    <value>فشل التحديث. حاول مرة أخرى</value>
+  </data>
+	<data name="UpdateSuccess" xml:space="preserve">
+    <value>تم التحديث بنجاح</value>
+  </data>
+	<data name="ErrorMessage" xml:space="preserve">
+    <value>حدث خطأ غير متوقع، حاول مرة أخرى</value>
+  </data>
+	<data name="ErrorTitle" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+	<data name="FactorIsRequired" xml:space="preserve">
+    <value>الحقل مطلوب</value>
+  </data>
+	<data name="FactorRange" xml:space="preserve">
+    <value>يجب أن تكون قيمة العامل بين 0.25 و 10</value>
+  </data>
+	<data name="SaveFailedTitle" xml:space="preserve">
+    <value>فشل الحفظ</value>
+  </data>
+	<data name="SaveFailedMessage" xml:space="preserve">
+    <value>فشل في حفظ البيانات، حاول مرة</value>
+  </data>
+	<data name="UpdateSuccessTitle" xml:space="preserve">
+    <value>تم التحديث</value>
+  </data>
+	<data name="UpdateSuccessMessage" xml:space="preserve">
+    <value>تم التحديث بنجاح</value>
+  </data>
+	<data name="UpdateFailedTitle" xml:space="preserve">
+    <value>فشل التحديث</value>
+  </data>
+	<data name="UpdateFailedMessage" xml:space="preserve">
+    <value>فشل في تحديث البيانات  حاول مرة أخرى</value>
+  </data>
+	<data name="DeleteSuccessTitle" xml:space="preserve">
+    <value>تم الحذف</value>
+  </data>
+	<data name="DeleteSuccessMessage" xml:space="preserve">
+    <value>تم حذف العنصر بنجاح</value>
+  </data>
+	<data name="DeleteFailedTitle" xml:space="preserve">
+    <value>فشل الحذف</value>
+  </data>
+	<data name="DeleteFailedMessage" xml:space="preserve">
+    <value>فشل في حذف العنصر، حاول مرة أخرى</value>
+  </data>
+	<data name="CarrierNameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم شركة الشحن</value>
+  </data>
+	<data name="CountryRequired" xml:space="preserve">
+    <value>من فضلك اختر الدولة</value>
+  </data>
+	<data name="MethodAnameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم الطريقة بالعربية</value>
+  </data>
+	<data name="MethodEnameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم الطريقة بالإنجليزية</value>
+  </data>
+	<data name="CommissionRequired" xml:space="preserve">
+    <value>العمولة مطلوبة</value>
+  </data>
+	<data name="CommissionRange" xml:space="preserve">
+    <value>يجب أن تكون العمولة بين 0 و 100</value>
+  </data>
+	<data name="KiloMeterRateRequired" xml:space="preserve">
+    <value>سعر الكيلو متر مطلوب</value>
+  </data>
+	<data name="KiloMeterRateRange" xml:space="preserve">
+    <value>يجب أن يكون سعر الكيلو متر أكبر من 0</value>
+  </data>
+	<data name="KilooGramRateRequired" xml:space="preserve">
+    <value>سعر الكيلو جرام مطلوب</value>
+  </data>
+	<data name="KilooGramRateRange" xml:space="preserve">
+    <value>يجب أن يكون سعر الكيلو جرام أكبر من 0</value>
+  </data>
+	<data name="PackageNameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم الباقة</value>
+  </data>
+	<data name="ShippimentCountRequired" xml:space="preserve">
+    <value>عدد الشحنات مطلوب</value>
+  </data>
+	<data name="ShippimentCountRange" xml:space="preserve">
+    <value>يجب أن يكون عدد الشحنات أكبر من 0</value>
+  </data>
+	<data name="NumberOfKiloMetersRequired" xml:space="preserve">
+    <value>عدد الكيلو مترات مطلوب</value>
+  </data>
+	<data name="NumberOfKiloMetersRange" xml:space="preserve">
+    <value>يجب أن يكون عدد الكيلو مترات أكبر من 0</value>
+  </data>
+	<data name="TotalWeightRequired" xml:space="preserve">
+    <value>الوزن الإجمالي مطلوب</value>
+  </data>
+	<data name="TotalWeightRange" xml:space="preserve">
+    <value>يجب أن يكون الوزن الإجمالي أكبر من 0</value>
+  </data>
+	<data name="UsernameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم المستخدم</value>
+  </data>
+	<data name="PasswordRequired" xml:space="preserve">
+    <value>من فضلك أدخل كلمة المرور</value>
+  </data>
+	<data name="PasswordLength" xml:space="preserve">
+    <value>يجب أن تكون كلمة المرور بين 6 و 100 حرف</value>
+  </data>
+	<data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>من فضلك أكد كلمة المرور</value>
+  </data>
+	<data name="PasswordNotMatch" xml:space="preserve">
+    <value>كلمتا المرور غير متطابقتين</value>
+  </data>
+	<data name="AccessDeniedMessage" xml:space="preserve">
+    <value>ليس لديك صلاحية للوصول إلى هذه الصفحة</value>
+  </data>
+	<data name="EnterPhone" xml:space="preserve">
+    <value>أدخل رقم الهاتف</value>
+  </data>
+	<data name="FirstNameRequired" xml:space="preserve">
+    <value>من فضلك أدخل الاسم الأول</value>
+  </data>
+	<data name="LastNameRequired" xml:space="preserve">
+    <value>من فضلك أدخل اسم العائلة</value>
+  </data>
+	<data name="EmailInvalid" xml:space="preserve">
+    <value>من فضلك أدخل بريد إلكتروني صحيح</value>
+  </data>
+	<data name="PhoneNumberInvalid" xml:space="preserve">
+    <value>من فضلك أدخل رقم هاتف صحيح</value>
+  </data>
+	<data name="EnterEmail" xml:space="preserve">
+    <value>من فضلك ادخل الإيميل</value>
+  </data>
+	<data name="ShippingPackagingAnameRequired" xml:space="preserve">
+    <value>الاسم العربي مطلوب</value>
+  </data>
+	<data name="ShippingPackagingEnameRequired" xml:space="preserve">
+    <value>الاسم الإنجليزي مطلوب</value>
+  </data>
+	<data name="ShippingPackagingAnameMax" xml:space="preserve">
+    <value>الاسم العربي لا يزيد عن 200 حرف</value>
+  </data>
+	<data name="ShippingPackagingEnameMax" xml:space="preserve">
+    <value>الاسم الإنجليزي لا يزيد عن 200 حرف</value>
+  </data>
+
+	<!-- NEW FOR DTOSHIPMENT - CORRECTED NAMES -->
+	<data name="ShippingDateRequired" xml:space="preserve">
+    <value>تاريخ الشحنة مطلوب</value>
+  </data>
+	<data name="DeliveryDateRequired" xml:space="preserve">
+    <value>تاريخ التسليم مطلوب</value>
+  </data>
+	<data name="ShippingTypeRequired" xml:space="preserve">
+    <value>نوع الشحنة مطلوب</value>
+  </data>
+	<data name="WidthRequired" xml:space="preserve">
+    <value>عرض الصندوق مطلوب</value>
+  </data>
+	<data name="WidthRange" xml:space="preserve">
+    <value>عرض الصندوق يجب أن يكون أكبر من 0</value>
+  </data>
+	<data name="HeightRequired" xml:space="preserve">
+    <value>ارتفاع الصندوق مطلوب</value>
+  </data>
+	<data name="HeightRange" xml:space="preserve">
+    <value>ارتفاع الصندوق يجب أن يكون أكبر من 0</value>
+  </data>
+	<data name="LengthRequired" xml:space="preserve">
+    <value>طول الصندوق مطلوب</value>
+  </data>
+	<data name="LengthRange" xml:space="preserve">
+    <value>طول الصندوق يجب أن يكون أكبر من 0</value>
+  </data>
+	<data name="PackageValueRequired" xml:space="preserve">
+    <value>قيمة الصندوق مطلوبة</value>
+  </data>
+	<data name="PackageValueRange" xml:space="preserve">
+    <value>قيمة الصندوق يجب أن تكون أكبر من 0</value>
+  </data>
+	<data name="ShippingRateRequired" xml:space="preserve">
+    <value>سعر الشحنة مطلوب</value>
+  </data>
+	<data name="ShippingRateRange" xml:space="preserve">
+    <value>سعر الشحنة يجب أن يكون أكبر من 0</value>
+  </data>
+	<data name="SenderIdRequired" xml:space="preserve">
+    <value>بيانات المرسل مطلوبة</value>
+  </data>
+	<data name="ReceiverIdRequired" xml:space="preserve">
+    <value>بيانات المستقبل مطلوبة</value>
+  </data>
+</root>

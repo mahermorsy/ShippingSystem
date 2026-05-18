@@ -1,0 +1,96 @@
+﻿@model DTOUser
+
+<!-- Breadcroumbs start -->
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <h1>Customer Registration</h1>
+                <a asp-controller="Home" asp-action="Index" title="Home">Home</a> / Customer Registration
+            </div>
+            <div class="col-12 col-lg-5 text-right">
+                <h4>
+                    We freight to all over the world
+                    The best logistic company, <span>FAST</span> and <span>SAFELY!</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcroumbs end -->
+<!-- Customer Registration Start -->
+<div class="wshipping-content-block">
+    <div class="container">
+        <div class="customer-login">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="customer-login-left">
+                        <div class="login-icon"><i class="fa fa-unlock-alt"></i></div>
+                        <h4>Welcome To new account</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+                        <a asp-controller="Account" asp-action="Login">If you have account already, please login in</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="customer-login-block">
+                        <h2>Registration</h2>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <form asp-controller="Account" asp-action="Register" method="post">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.UserName :</label>
+                                        <input class="form-control" type="text" asp-for="UserName" placeholder="@Lables.Enterusername" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.FirstName :</label>
+                                        <input type="text" asp-for="FirstName" placeholder="@Lables.FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.LastName :</label>
+                                        <input type="text" asp-for="LastName" placeholder="@Lables.LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                  
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.Phone:</label>
+                                        <input type="text" asp-for="PhoneNumber"  class="form-control" placeholder="@Messages.EnterPhone" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.Email:</label>
+                                        <input type="text" asp-for="Email" class="form-control" placeholder="@Messages.EnterEmail"  />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.Password:</label>
+                                        <input type="password" asp-for="Password"  class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <label>@Lables.ConfirmPassword:</label>
+                                        <input asp-for="ConfirmationPassword" class="form-control" placeholder="@Lables.ConfirmPassword" type="password" />
+                                        <span asp-validation-for="ConfirmationPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-submit">Registration</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

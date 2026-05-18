@@ -1,0 +1,131 @@
+﻿@model List<DtoPaymentMethod>
+
+@section Styles
+{
+    <!-- Plugin css for this page -->
+    <link href="~/admin/vendors/datatables.net-bs4/datatables.bootstrap4.css" rel="stylesheet" />
+    <!-- End plugin css for this page -->
+}
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">@Lables.PaymentMethods</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @* <li class="breadcrumb-item"><a href="#"></a></li>
+                <li class="breadcrumb-item active" aria-current="page"></li> *@
+            </ol>
+        </nav>
+        <a asp-area="admin" asp-controller="PaymentMethods" asp-action="Addnew"
+           class="btn btn-primary btn-fw">
+            <i class="mdi mdi-plus"></i> @Actions.AddNew
+        </a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Lables.PaymentMethods</h4>
+            <div class="row">
+                <div class="col-12">
+                    <table id="order-listing" class="table">
+                        <thead>
+                            <tr>
+                                <th>@Lables.NameEn</th>
+                                <th>@Lables.NameAr</th>
+                                <th>@Lables.Commission</th>
+                                <th>@Lables.Status</th>
+                                <th>@Lables.Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.MethdAname</td>
+                                    <td>@item.MethodEname</td>
+                                    <td>@item.Commission</td>
+                                    <td>@item.CurrentState</td>
+                                    @* <td>@item.ShippingFactor.ToString("yyyy-MM-dd")</td> *@
+                                    <td>
+                                        <a style="height:max-content"
+                                           asp-area="admin" asp-controller="PaymentMethods" asp-action="Edit" asp-route-PaymentMethodId="@item.Id"
+                                           class="btn btn-info btn-fw">@Actions.Edit</a>
+
+
+                                        @* <a asp-area="admin" asp-controller="ShippingType" asp-action="Delete" asp-route-ShipTypeId="@item.Id"
+                                           class="btn btn-danger btn-fw"
+                                           onclick="return confirm('Are you sure?');">@Actions.Delete</a> *@
+                                        <button type="button"
+                                                style="height:max-content"
+                                                class="btn btn-danger btn-fw btn-delete"
+                                                data-id="@item.Id">
+                                            @Actions.Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }   
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <!-- Plugin js for this page -->
+    <script src="~/admin/vendors/datatables.net/jquery.datatables.js"></script>
+    <script src="~/admin/vendors/datatables.net-bs4/datatables.bootstrap4.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page -->
+    <script src="~/admin/js/data-table.js"></script>
+    <!-- End custom js for this page -->
+    @if (TempData["Messagetype"] != null)
+        {                 
+            <script>
+
+          $(document).ready(function () {
+    let Message = parseInt('@TempData["Messagetype"]');
+    switch (Message) {
+        case 1:
+            appAlert.SUCCESS('@Messages.SaveSuccess', "@Messages.SaveSuccessMessage");
+            break;
+        case 2:
+            appAlert.ERROR('@Messages.SaveFailedTitle', "@Messages.SaveFailedMessage");
+            break;
+        case 3:
+            appAlert.SUCCESS('@Messages.UpdateSuccessTitle', "@Messages.UpdateSuccessMessage");
+            break;
+        case 4:
+            appAlert.ERROR('@Messages.UpdateFailedTitle', "@Messages.UpdateFailedMessage");
+            break;
+        case 5:
+            appAlert.SUCCESS('@Messages.DeleteSuccessTitle', "@Messages.DeleteSuccessMessage");
+            break;
+        case 6:
+            appAlert.ERROR('@Messages.DeleteFailedTitle', "@Messages.DeleteFailedMessage");
+            break;
+        default:
+            break;
+    }
+});
+            </script> 
+        }      
+    <script>
+            $(document).ready(function () {
+            $('#order-listing tbody').on('click', '.btn-delete', function (e) {
+                e.preventDefault();
+
+                var id = $(this).data('id');
+                var deleteUrl = '@Url.Action("Delete", "PaymentMethods", new { area = "admin" })';
+
+                appAlert.ConfirmDelete(function (result) {
+                    if (result) {
+                        window.location.href = deleteUrl + '?PaymentMethodId=' + id;
+                    }
+                });
+            });
+        });
+    </script>
+}

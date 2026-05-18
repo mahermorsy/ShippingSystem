@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<!-- EXISTING -->
+	<data name="AccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+	<data name="ChangesDiscarded" xml:space="preserve">
+    <value>Changes Discarded</value>
+  </data>
+	<data name="ConfirmationPrompt" xml:space="preserve">
+    <value>Are you sure you want to proceed?</value>
+  </data>
+	<data name="DeleteFailed" xml:space="preserve">
+    <value>Delete failed. Please try again.</value>
+  </data>
+	<data name="DeleteSuccess" xml:space="preserve">
+    <value>Deleted successfully</value>
+  </data>
+	<data name="InvalidInput" xml:space="preserve">
+    <value>Invalid Input</value>
+  </data>
+	<data name="LoginFailed" xml:space="preserve">
+    <value>Login Failed</value>
+  </data>
+	<data name="LoginSuccess" xml:space="preserve">
+    <value>Logged in successfully</value>
+  </data>
+	<data name="LogoutSuccess" xml:space="preserve">
+    <value>Logged out successfully</value>
+  </data>
+	<data name="NameArRequired" xml:space="preserve">
+    <value>Please enter Arabic name.</value>
+  </data>
+	<data name="NameEnRequired" xml:space="preserve">
+    <value>Please enter English name</value>
+  </data>
+	<data name="NameLength" xml:space="preserve">
+    <value>Length should be between 5 and 100 characters.</value>
+  </data>
+	<data name="RecordNotFound" xml:space="preserve">
+    <value>Record Not Found</value>
+  </data>
+	<data name="SaveFailed" xml:space="preserve">
+    <value>Save failed. Please try again.</value>
+  </data>
+	<data name="SaveSuccess" xml:space="preserve">
+    <value>Saved successfully</value>
+  </data>
+	<data name="SaveSuccessMessage" xml:space="preserve">
+    <value>Your data has been saved successfully</value>
+  </data>
+	<data name="SessionExpired" xml:space="preserve">
+    <value>Your session has expired.</value>
+  </data>
+	<data name="UnauthorizedAction" xml:space="preserve">
+    <value>Unauthorized Action</value>
+  </data>
+	<data name="UpdateFailed" xml:space="preserve">
+    <value>Update failed. Please try again.</value>
+  </data>
+	<data name="UpdateSuccess" xml:space="preserve">
+    <value>Updated successfully.</value>
+  </data>
+	<data name="ErrorMessage" xml:space="preserve">
+    <value>Something went wrong. Please try again</value>
+  </data>
+	<data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+	<data name="FactorIsRequired" xml:space="preserve">
+    <value>Factor Is Required</value>
+  </data>
+	<data name="FactorRange" xml:space="preserve">
+    <value>Range must be between 0.25 and 10</value>
+  </data>
+	<data name="SaveFailedTitle" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+	<data name="SaveFailedMessage" xml:space="preserve">
+    <value>Failed to save data. Please try again</value>
+  </data>
+	<data name="UpdateSuccessTitle" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+	<data name="UpdateSuccessMessage" xml:space="preserve">
+    <value>Your data has been updated successfully.</value>
+  </data>
+	<data name="UpdateFailedTitle" xml:space="preserve">
+    <value>Update Failed </value>
+  </data>
+	<data name="UpdateFailedMessage" xml:space="preserve">
+    <value>Failed to update data. Please try again</value>
+  </data>
+	<data name="DeleteSuccessTitle" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+	<data name="DeleteSuccessMessage" xml:space="preserve">
+    <value>The item has been deleted successfully</value>
+  </data>
+	<data name="DeleteFailedTitle" xml:space="preserve">
+    <value>Delete Failed</value>
+  </data>
+	<data name="DeleteFailedMessage" xml:space="preserve">
+    <value>Failed to delete the item. Please try again</value>
+  </data>
+	<data name="CarrierNameRequired" xml:space="preserve">
+    <value>Please enter carrier name</value>
+  </data>
+	<data name="CountryRequired" xml:space="preserve">
+    <value>Please select a country</value>
+  </data>
+	<data name="MethodAnameRequired" xml:space="preserve">
+    <value>Please enter Arabic method name</value>
+  </data>
+	<data name="MethodEnameRequired" xml:space="preserve">
+    <value>Please enter English method name</value>
+  </data>
+	<data name="CommissionRequired" xml:space="preserve">
+    <value>Commission is required</value>
+  </data>
+	<data name="CommissionRange" xml:space="preserve">
+    <value>Commission must be between 0 and 100</value>
+  </data>
+	<data name="KiloMeterRateRequired" xml:space="preserve">
+    <value>Kilometer rate is required</value>
+  </data>
+	<data name="KiloMeterRateRange" xml:space="preserve">
+    <value>Kilometer rate must be greater than 0</value>
+  </data>
+	<data name="KilooGramRateRequired" xml:space="preserve">
+    <value>Kilogram rate is required</value>
+  </data>
+	<data name="KilooGramRateRange" xml:space="preserve">
+    <value>Kilogram rate must be greater than 0</value>
+  </data>
+	<data name="PackageNameRequired" xml:space="preserve">
+    <value>Please enter package name</value>
+  </data>
+	<data name="ShippimentCountRequired" xml:space="preserve">
+    <value>Shipment count is required</value>
+  </data>
+	<data name="ShippimentCountRange" xml:space="preserve">
+    <value>Shipment count must be greater than 0</value>
+  </data>
+	<data name="NumberOfKiloMetersRequired" xml:space="preserve">
+    <value>Number of kilometers is required</value>
+  </data>
+	<data name="NumberOfKiloMetersRange" xml:space="preserve">
+    <value>Number of kilometers must be greater than 0</value>
+  </data>
+	<data name="TotalWeightRequired" xml:space="preserve">
+    <value>Total weight is required.</value>
+  </data>
+	<data name="TotalWeightRange" xml:space="preserve">
+    <value>Total weight must be greater than 0</value>
+  </data>
+	<data name="UsernameRequired" xml:space="preserve">
+    <value>Please enter username</value>
+  </data>
+	<data name="PasswordRequired" xml:space="preserve">
+    <value>Please enter password</value>
+  </data>
+	<data name="PasswordLength" xml:space="preserve">
+    <value>Password must be between 6 and 100 characters</value>
+  </data>
+	<data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>Please confirm your password</value>
+  </data>
+	<data name="PasswordNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+	<data name="AccessDeniedMessage" xml:space="preserve">
+    <value>You do not have permission to access this page</value>
+  </data>
+	<data name="EnterPhone" xml:space="preserve">
+    <value>Enter Phone Number</value>
+  </data>
+	<data name="FirstNameRequired" xml:space="preserve">
+    <value>Please enter first name</value>
+  </data>
+	<data name="LastNameRequired" xml:space="preserve">
+    <value>Please enter last name</value>
+  </data>
+	<data name="EmailInvalid" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+	<data name="PhoneNumberInvalid" xml:space="preserve">
+    <value>Please enter a valid phone number</value>
+  </data>
+	<data name="EnterEmail" xml:space="preserve">
+    <value>Enter Email</value>
+  </data>
+	<data name="ShippingPackagingAnameRequired" xml:space="preserve">
+    <value>Arabic name is required</value>
+  </data>
+	<data name="ShippingPackagingEnameRequired" xml:space="preserve">
+    <value>English name is required</value>
+  </data>
+	<data name="ShippingPackagingAnameMax" xml:space="preserve">
+    <value>Arabic name must not exceed 200 characters</value>
+  </data>
+	<data name="ShippingPackagingEnameMax" xml:space="preserve">
+    <value>English name must not exceed 200 characters</value>
+  </data>
+
+	<!-- NEW FOR DTOSHIPMENT -->
+	<data name="ShippingDateRequired" xml:space="preserve">
+    <value>Shipping date is required</value>
+  </data>
+	<data name="DeliveryDateRequired" xml:space="preserve">
+    <value>Delivery date is required</value>
+  </data>
+	<data name="ShippingTypeRequired" xml:space="preserve">
+    <value>Shipping type must be selected</value>
+  </data>
+	<data name="WidthRequired" xml:space="preserve">
+    <value>Package width is required</value>
+  </data>
+	<data name="WidthRange" xml:space="preserve">
+    <value>Package width must be greater than 0</value>
+  </data>
+	<data name="HeightRequired" xml:space="preserve">
+    <value>Package height is required</value>
+  </data>
+	<data name="HeightRange" xml:space="preserve">
+    <value>Package height must be greater than 0</value>
+  </data>
+	<data name="LengthRequired" xml:space="preserve">
+    <value>Package length is required</value>
+  </data>
+	<data name="LengthRange" xml:space="preserve">
+    <value>Package length must be greater than 0</value>
+  </data>
+	<data name="PackageValueRequired" xml:space="preserve">
+    <value>Package value is required</value>
+  </data>
+	<data name="PackageValueRange" xml:space="preserve">
+    <value>Package value must be greater than 0</value>
+  </data>
+	<data name="ShippingRateRequired" xml:space="preserve">
+    <value>Shipping rate is required</value>
+  </data>
+	<data name="ShippingRateRange" xml:space="preserve">
+    <value>Shipping rate must be greater than 0</value>
+  </data>
+	<data name="SenderIdRequired" xml:space="preserve">
+    <value>Sender information is required</value>
+  </data>
+	<data name="ReceiverIdRequired" xml:space="preserve">
+    <value>Receiver information is required</value>
+  </data>
+</root>
