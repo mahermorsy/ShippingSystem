@@ -87,6 +87,12 @@ Shipping Management System is a portfolio web application for creating, managing
 
 ## Screenshots
 
+### Shipment History
+![Shipment History](https://github.com/mahermorsy/ShippingSystem/blob/main/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-18%20160829.png?raw=true)
+
+### Admin Dashboard
+![Admin Dashboard](https://github.com/mahermorsy/ShippingSystem/blob/main/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-18%20161448.png?raw=true)
+
 Add updated screenshots before publishing the repository:
 
 - Shipment creation flow
