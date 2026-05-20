@@ -220,7 +220,7 @@
             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG'],
             datasets: [
               {
-                label: "CHN",
+                label: "Created",
                 borderColor: gradientStrokeViolet,
                 backgroundColor: gradientStrokeViolet,
                 hoverBackgroundColor: gradientStrokeViolet,
@@ -232,7 +232,7 @@
                 data: [20, 40, 15, 35, 25, 50, 30, 20]
               },
               {
-                label: "USA",
+                label: "In Transit",
                 borderColor: gradientStrokeRed,
                 backgroundColor: gradientStrokeRed,
                 hoverBackgroundColor: gradientStrokeRed,
@@ -244,7 +244,7 @@
                 data: [40, 30, 20, 10, 50, 15, 35, 40]
               },
               {
-                label: "UK",
+                label: "Delivered",
                 borderColor: gradientStrokeBlue,
                 backgroundColor: gradientStrokeBlue,
                 hoverBackgroundColor: gradientStrokeBlue,
@@ -434,17 +434,18 @@
       $("#visit-sale-chart-legend-dark").html(myChart.generateLegend());
     }
     if ($("#traffic-chart").length) {
-      var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 181);
+      var trafficChartCanvas = $("#traffic-chart").get(0).getContext("2d");
+      var gradientStrokeBlue = trafficChartCanvas.createLinearGradient(0, 0, 0, 181);
       gradientStrokeBlue.addColorStop(0, 'rgba(54, 215, 232, 1)');
       gradientStrokeBlue.addColorStop(1, 'rgba(177, 148, 250, 1)');
       var gradientLegendBlue = 'linear-gradient(to right, rgba(54, 215, 232, 1), rgba(177, 148, 250, 1))';
 
-      var gradientStrokeRed = ctx.createLinearGradient(0, 0, 0, 50);
+      var gradientStrokeRed = trafficChartCanvas.createLinearGradient(0, 0, 0, 50);
       gradientStrokeRed.addColorStop(0, 'rgba(255, 191, 150, 1)');
       gradientStrokeRed.addColorStop(1, 'rgba(254, 112, 150, 1)');
       var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
 
-      var gradientStrokeGreen = ctx.createLinearGradient(0, 0, 0, 300);
+      var gradientStrokeGreen = trafficChartCanvas.createLinearGradient(0, 0, 0, 300);
       gradientStrokeGreen.addColorStop(0, 'rgba(6, 185, 157, 1)');
       gradientStrokeGreen.addColorStop(1, 'rgba(132, 217, 210, 1)');
       var gradientLegendGreen = 'linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))';      
@@ -476,9 +477,9 @@
     
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
-          'Search Engines',
-          'Direct Click',
-          'Bookmarks Click',
+          'Air Freight',
+          'Ground Delivery',
+          'Sea Cargo',
         ]
       };
       var trafficChartOptions = {
@@ -505,7 +506,6 @@
           return text.join('');
         }
       };
-      var trafficChartCanvas = $("#traffic-chart").get(0).getContext("2d");
       var trafficChart = new Chart(trafficChartCanvas, {
         type: 'doughnut',
         data: trafficChartData,

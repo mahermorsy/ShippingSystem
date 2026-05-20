@@ -1,17 +1,22 @@
 @model List<DtoShipment>
 <!-- Breadcroumbs start -->
-<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
+<div class="wshipping-content-block wshipping-breadcroumb inner-bg-1 shipment-history-hero">
     <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-12 col-lg-7">
+                <span class="shipment-page-kicker">Customer workspace</span>
                 <h1>Shipment History</h1>
-                <a asp-controller="Home" asp-action="Index" title="Home">Home</a> / Shipment History
+                <div class="shipment-breadcrumb">
+                    <a asp-controller="Home" asp-action="Index" title="Home">Home</a> / Shipment History
+                </div>
             </div>
-            <div class="col-12 col-lg-5 text-right">
-                <h4>
-                    We freight to all over the world
-                    The best logistic company, <span>FAST</span> and <span>SAFELY!</span>
-                </h4>
+            <div class="col-12 col-lg-5">
+                <div class="shipment-hero-note">
+                    <i class="fa fa-shipping-fast"></i>
+                    <h4>
+                        Track every order from pickup to delivery with a cleaner operational view.
+                    </h4>
+                </div>
             </div>
         </div>
     </div>
@@ -19,15 +24,23 @@
 <!-- Breadcroumbs end -->
 
 <!-- Shipment History start -->
-<div class="wshipping-content-block">
+<div class="wshipping-content-block shipment-history-page">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-9">
-                <div class="order-list">
-                    <h3>Your Shipment History</h3>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover text-center align-middle">
-                            <thead class="table-dark">
+                <div class="order-list shipment-history-card">
+                    <div class="shipment-history-head">
+                        <div>
+                            <span class="shipment-page-kicker">Shipments</span>
+                            <h3>Your Shipment History</h3>
+                        </div>
+                        <a asp-controller="Shipments" asp-action="CreateShipment" class="shipment-head-action">
+                            <i class="fa fa-plus"></i> New Shipment
+                        </a>
+                    </div>
+                    <div class="table-responsive shipment-history-table-wrap">
+                        <table class="table table-bordered table-hover text-center align-middle shipment-history-table">
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Tracking</th>
@@ -48,7 +61,7 @@
                             </thead>
                             <tbody id="shipmentsTableBody">
                                 <tr>
-                                    <td colspan="14" class="text-center">Loading shipments...</td>
+                                    <td colspan="15" class="text-center">Loading shipments...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,14 +71,19 @@
             </div>
 
             <div class="col-12 col-lg-3">
-                <div class="right-block left-menu menu-with-title mt60 mb15">
+                <div class="right-block left-menu menu-with-title mt60 mb15 shipment-side-card">
                     <h4 class="title-with-bg">Quick Links</h4>
                     <ul>
                         <li class="active"><a asp-controller="Shipments" asp-action="List" title="Shipment history">Shipment History</a></li>
                         <li><a asp-controller="Shipments" asp-action="CreateShipment" title="Create shipment">Create Shipment</a></li>
                     </ul>
                 </div>
-                <a asp-controller="Shipments" asp-action="CreateShipment" class="order-list-button">Create New Shipment</a>
+                <div class="shipment-side-summary">
+                    <i class="fa fa-route"></i>
+                    <strong>Need another delivery?</strong>
+                    <span>Create a new shipment and follow it from here.</span>
+                </div>
+                <a asp-controller="Shipments" asp-action="CreateShipment" class="order-list-button shipment-create-button">Create New Shipment</a>
             </div>
         </div>
     </div>

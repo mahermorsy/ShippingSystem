@@ -121,26 +121,35 @@
 		
 		/*scrollTop*/
 		
+		var $window = $(window);
+		var $scrollUp = $('.scrollup');
+		var isScrollUpVisible = false;
+		var scrollTicking = false;
+
+		function updateScrollState() {
+		  var scrollTop = $window.scrollTop();
+		  var shouldShowScrollUp = scrollTop > 300;
+
+		  if (shouldShowScrollUp !== isScrollUpVisible) {
+			  $scrollUp.stop(true, true).fadeToggle(100, shouldShowScrollUp);
+			  isScrollUpVisible = shouldShowScrollUp;
+		  }
+
+		  scrollTicking = false;
+		}
+
 		$('.scrollup').on('click',function(){
-			$("html, body").animate({ scrollTop: 0 }, 600);
+			$("html, body").animate({ scrollTop: 0 }, 260);
 			return false;
 		});
 		
 		/*On scroll*/
 		
-		$(window).on('scroll',function() {
-		  if ($(this).scrollTop() > 0){  
-			  $('header.for-sticky').addClass("sticky");
-		     } else {
-			  $('header.for-sticky').removeClass("sticky");
-		   }
-		   
-		   if ($(this).scrollTop() > 300) {
-				$('.scrollup').fadeIn();
-			} else {
-				$('.scrollup').fadeOut();
-			}
-		   
+		$window.on('scroll',function() {
+		  if (!scrollTicking) {
+			  window.requestAnimationFrame(updateScrollState);
+			  scrollTicking = true;
+		  }
 		});
 		
 		
@@ -215,4 +224,4 @@
 		
     });
 	
-}(jQuery));	
+}(jQuery));

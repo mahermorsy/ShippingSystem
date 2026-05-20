@@ -1,5 +1,17 @@
 ﻿
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var isHome = currentController == "Home" && currentAction == "Index";
+    var isAbout = currentController == "Home" && currentAction == "About";
+    var isServices = currentController == "Home" && currentAction == "OurServices";
+    var isShipping = currentController == "Shipments" && currentAction == "CreateShipment";
+    var isShipmentList = currentController == "Shipments" && currentAction == "List";
+    var isPayment = currentController == "Home" && currentAction == "Payment";
+    var isBlog = currentController == "Home" && currentAction == "Blog";
+    var isContact = currentController == "Home" && currentAction == "Contact";
+}
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -12,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Title -->
-    <title>W-shipping  - The World Class Bootstrap4 Multipurpose Shipping Cargo Logistic HTML5 Template</title>
+    <title>W Shipping</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="~/assets/images/fevicon.png">
@@ -36,6 +48,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <link rel="stylesheet" href="~/assets/css/public-overrides.css" asp-append-version="true">
     <!-- RTL CSS -->
     <!-- <link rel="stylesheet" href="~/assets/css/rtl.css"> -->
     <!-- jQuery -->
@@ -120,28 +133,20 @@
                     <div class="logo"> <a asp-controller="Home" asp-action="Index" title="W-shipping"><img src="~/assets/images/logo.png" alt="W-shipping" /></a> </div>
                     <!-- Site logo end -->
                     <div class="mobile-menu-wrapper"></div>
-                    <!-- Search Start -->
-                    <!-- <div class="dropdown header-search-bar">
-          <form action="index.html">
-            <span class="" data-toggle="dropdown"><i class="fa fa-search" aria-hidden="true"></i></span>
-            <input type="search" placeholder="kyewords.." class="dropdown-menu search-box">
-          </form>
-        </div> -->
-                    <!-- Search End -->
                     <!-- Main menu start -->
                     <nav class="mainmenu">
                         <ul id="navigation">
 
-                            <li class="nav-active">
+                            <li class="@(isHome ? "nav-active" : "")">
                                 <a asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
-                            <li><a asp-controller="Home" asp-action="OurServices">Services</a></li>
-                            <li><a asp-controller="Shipments" asp-action="CreateShipment">Shipping</a></li>
-                            <li><a asp-controller="Home" asp-action="Payment">Payment</a></li>
-                            <li><a asp-controller="Home" asp-action="Blog">Blog</a></li>
-                            <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
-                            <li><a asp-controller="Shipments" asp-action="List">Shipments History</a></li>
+                            <li class="@(isAbout ? "nav-active" : "")"><a asp-controller="Home" asp-action="About">About Us</a></li>
+                            <li class="@(isServices ? "nav-active" : "")"><a asp-controller="Home" asp-action="OurServices">Services</a></li>
+                            <li class="@(isShipping ? "nav-active" : "")"><a asp-controller="Shipments" asp-action="CreateShipment">Shipping</a></li>
+                            <li class="@(isPayment ? "nav-active" : "")"><a asp-controller="Home" asp-action="Payment">Payment</a></li>
+                            <li class="@(isBlog ? "nav-active" : "")"><a asp-controller="Home" asp-action="Blog">Blog</a></li>
+                            <li class="@(isContact ? "nav-active" : "")"><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                            <li class="@(isShipmentList ? "nav-active" : "")"><a asp-controller="Shipments" asp-action="List">Shipments History</a></li>
 
                             @if (User.Identity != null && User.Identity.IsAuthenticated)
                             {
@@ -195,13 +200,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-md-6 col-lg-3">
-                            <div class="footer-wiz">
+                            <div class="footer-wiz footer-brand-card">
                                 <h3 class="footer-logo"><img src="~/assets/images/footer-logo.png" alt="footer logo" /></h3>
-                                <p>It was popularised in the 1960s with the release of Letraset sheets containing.</p>
+                                <p>Reliable shipment management for customers, carriers, and operations teams.</p>
                                 <ul class="footer-contact">
                                     <li><i class="fa fa-phone"></i> +966 548194848</li>
-                                    <li><i class="fa fa-envelope"></i> info@companyname.com</li>
-                                    <li><i class="fa fa-fax"></i> +966 548194849</li>
+                                    <li><i class="fa fa-envelope"></i> info@company.com</li>
+                                    <li><i class="fa fa-clock"></i> 9:00AM to 8:00PM</li>
                                 </ul>
                             </div>
                             <div class="top-social bottom-social"> <a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i class="fab fa-youtube"></i></a> <a href="#"><i class="fa fa-rss"></i></a> </div>
@@ -210,21 +215,21 @@
                             <div class="footer-wiz footer-menu">
                                 <h3 class="footer-wiz-title">Quick Links</h3>
                                 <ul>
-                                    <li><a href="~/Views/Home/About.cshtml">Company Overview</a></li>
-                                    <li><a href="~/Views/Home/Services.cshtml">Our Services</a></li>
-                                    <li><a href="~/Views/Home/Blog.cshtml">Blog</a></li>
-                                    <li><a href="~/Views/Home/Contact.cshtml">Contact Us</a></li>
+                                    <li><a asp-controller="Home" asp-action="About">Company Overview</a></li>
+                                    <li><a asp-controller="Home" asp-action="OurServices">Our Services</a></li>
+                                    <li><a asp-controller="Home" asp-action="Blog">Blog</a></li>
+                                    <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="footer-wiz footer-menu">
-                                <h3 class="footer-wiz-title">Usefull Links</h3>
+                                <h3 class="footer-wiz-title">Useful Links</h3>
                                 <ul>
-                                    <li><a href="create-shipping.html">Create Shipping</a></li>
-                                    <li><a href="tracking.html">Tracking</a></li>
-                                    <li><a href="shipment-history.html">Shipment History</a></li>
-                                    <li><a href="tracking-result.html">Tracking Result</a></li>
+                                    <li><a asp-controller="Shipments" asp-action="CreateShipment">Create Shipment</a></li>
+                                    <li><a asp-controller="Shipments" asp-action="List">Shipment History</a></li>
+                                    <li><a asp-controller="Home" asp-action="Payment">Payment</a></li>
+                                    <li><a asp-controller="Account" asp-action="Login">Customer Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -232,14 +237,13 @@
                             <div class="footer-wiz">
                                 <h3 class="footer-wiz-title">Opening Hours</h3>
                                 <ul class="open-hours">
-                                    <li><span>Mon to Fri:</span> <span class="text-right">09:30AM to 05:30PM</span></li>
-                                    <li><span>Sun:</span> <span class="text-right">Closed</span></li>
+                                    <li><span>Mon to Fri:</span> <span class="text-right">09:00AM to 8:00PM</span></li>
+                                    <li><span>Saturday:</span> <span class="text-right">10:00AM to 4:00PM</span></li>
+                                    <li><span>Sunday:</span> <span class="text-right">Closed</span></li>
                                 </ul>
-                                <div class="newsletter">
-                                    <form action="index.html">
-                                        <input type="text" placeholder="Enter your email" value="" class="news-input">
-                                        <button type="submit" value="" class="news-btn"><i class="fa fa-location-arrow"></i></button>
-                                    </form>
+                                <div class="footer-cta">
+                                    <span>Need to send a package?</span>
+                                    <a asp-controller="Shipments" asp-action="CreateShipment">Start Shipment</a>
                                 </div>
                             </div>
                         </div>
@@ -251,8 +255,8 @@
             <div class="footer-bottom-area">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-lg-6 wow fadeInLeft">Copyright © 2024 <span>Wrold shipping</span>. All Rights Reserved</div>
-                        <div class="col-12 col-lg-6 text-right wow fadeInRight">Design & Development By: <a href="#" title="companytitle" target="_blank">Company Title</a></div>
+                        <div class="col-12 col-lg-6 wow fadeInLeft">Copyright © 2026 <span>W Shipping</span>. All Rights Reserved</div>
+                        <div class="col-12 col-lg-6 text-right wow fadeInRight">Shipment operations made simple</div>
                     </div>
                 </div>
             </div>
@@ -306,7 +310,7 @@
     <script src="~/assets/js/coming-soon.js"></script>
 
     <!-- Active JS -->
-    <script src="~/assets/js/active.js"></script>
+    <script src="~/assets/js/active.js" asp-append-version="true"></script>
     <script>
         window.appConfig = {
             apiBaseUrl: '@(Configuration["AuthApi:BaseUrl"]?.TrimEnd('/'))'

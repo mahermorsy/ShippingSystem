@@ -4,6 +4,7 @@ using BusinessLayer.Dtos;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -23,9 +24,11 @@ namespace BusinessLayer.Services.Payment
             var clientId = _config["PayPal:ClientId"];
             var clientSecret = _config["PayPal:ClientSecret"] ?? _config["PayPal:Secret"];
             var environment = _config["PayPal:Environment"];
-            if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(environment))
+            if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(environment) ||
+                clientId.StartsWith("YOUR_", StringComparison.OrdinalIgnoreCase) ||
+                clientSecret.StartsWith("YOUR_", StringComparison.OrdinalIgnoreCase))
             {
-                throw new Exception("PayPal credentials are missing.");
+                throw new Exception("PayPal credentials are missing or still using placeholder values.");
             }
 
         
@@ -84,10 +87,23 @@ namespace BusinessLayer.Services.Payment
                 var request = new HttpRequestMessage(HttpMethod.Post, Url);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                var total = Paymentrequist.CartItems.Sum(item => item.Price * item.Quantity);
+                Paymentrequist.CartItems ??= new List<DTOCartItems>();
+
+                var normalizedItems = Paymentrequist.CartItems
+                    .Where(item => item.Price > 0 && item.Quantity > 0)
+                    .Select(item => new DTOCartItems
+                    {
+                        Name = string.IsNullOrWhiteSpace(item.Name) ? "Shipping Service" : item.Name.Trim(),
+                        Description = string.IsNullOrWhiteSpace(item.Description) ? "Shipment payment" : item.Description.Trim(),
+                        Price = Math.Round(item.Price, 2),
+                        Quantity = item.Quantity
+                    })
+                    .ToList();
+
+                var total = normalizedItems.Sum(item => item.Price * item.Quantity);
                 if (total <= 0)
                 {
-                    total = Paymentrequist.TotalAmount;
+                    total = Math.Round(Paymentrequist.TotalAmount, 2);
                 }
 
                 if (total <= 0)
@@ -95,7 +111,7 @@ namespace BusinessLayer.Services.Payment
                     throw new Exception("Payment amount must be greater than zero.");
                 }
 
-                var orderItems = Paymentrequist.CartItems.Select(item => new
+                var orderItems = normalizedItems.Select(item => new
                 {
                     name = item.Name,
                     description = item.Description,
@@ -103,7 +119,7 @@ namespace BusinessLayer.Services.Payment
                     unit_amount = new
                     {
                         currency_code = "USD",
-                        value = item.Price.ToString("F2")
+                        value = item.Price.ToString("F2", CultureInfo.InvariantCulture)
                     },
 
                     quantity = item.Quantity.ToString(),
@@ -113,30 +129,41 @@ namespace BusinessLayer.Services.Payment
                     sku = Guid.NewGuid().ToString("N")
                 }).ToList();
 
+                object amount = orderItems.Any()
+                    ? new
+                    {
+                        currency_code = "USD",
+                        value = total.ToString("F2", CultureInfo.InvariantCulture),
+                        breakdown = new
+                        {
+                            item_total = new
+                            {
+                                currency_code = "USD",
+                                value = total.ToString("F2", CultureInfo.InvariantCulture)
+                            }
+                        }
+                    }
+                    : new
+                    {
+                        currency_code = "USD",
+                        value = total.ToString("F2", CultureInfo.InvariantCulture)
+                    };
+
+                object purchaseUnit = orderItems.Any()
+                    ? new
+                    {
+                        amount,
+                        items = orderItems
+                    }
+                    : new
+                    {
+                        amount
+                    };
+
                 var body = new
                 {
                     intent = "CAPTURE",
-                    purchase_units = new[]
-                      {
-                          new
-                            {
-                                amount = new
-                                {
-                                    currency_code = "USD",
-                                    value = total.ToString("F2"),
-                                    breakdown = new
-                                    {
-                                        item_total = new
-                                        {
-                                            currency_code = "USD",
-                                            value = total.ToString("F2")
-                                        }
-                                    }
-                                },
-                    
-                                items = orderItems
-                            }
-                        }
+                    purchase_units = new[] { purchaseUnit }
                 };
 
                 request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");

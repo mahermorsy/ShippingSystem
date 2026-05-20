@@ -348,54 +348,58 @@ function renderPayPalButtons() {
             label: "paypal"
         },
 
-        async createOrder() {
+        async createOrder(data, actions) {
+            const paymentRequest = buildPaymentRequest(shipmentPaymentPayload);
+            console.info("Create PayPal order request", paymentRequest);
+
             const response = await fetch(`${ApiClient.baseUrl}/api/Payment/Create`, {
                 method: "POST",
                 headers: ApiClient.buildHeaders ? ApiClient.buildHeaders(true) : { "Content-Type": "application/json" },
                 credentials: "include",
-                body: JSON.stringify(buildPaymentRequest(shipmentPaymentPayload))
+                body: JSON.stringify(paymentRequest)
             });
 
             const orderData = await readJsonResponse(response);
+            console.info("Create PayPal order response", orderData);
 
             const orderId = orderData?.id || orderData?.orderID || orderData?.OrderID;
 
-            if (typeof orderId === "string" && orderId.trim()) {
+            if (response.ok && typeof orderId === "string" && orderId.trim()) {
                 return orderId;
-            }
-
-            if (typeof orderData === "string" && orderData.trim()) {
-                return orderData;
             }
 
             throw new Error(extractPayPalMessage(orderData, "Could not create PayPal order."));
         },
 
         async onApprove(data, actions) {
+            const captureRequest = {
+                orderId: data.orderID,
+                amount: buildPaymentRequest(shipmentPaymentPayload).totalAmount
+            };
+
+            console.info("Capture PayPal order request", captureRequest);
+
             const response = await fetch(`${ApiClient.baseUrl}/api/Payment/Capture`, {
                 method: "POST",
                 headers: ApiClient.buildHeaders ? ApiClient.buildHeaders(true) : { "Content-Type": "application/json" },
                 credentials: "include",
-                body: JSON.stringify({
-                    orderId: data.orderID,
-                    amount: buildPaymentRequest(shipmentPaymentPayload).totalAmount
-                })
+                body: JSON.stringify(captureRequest)
             });
 
             const orderData = await readJsonResponse(response);
-            const errorDetail = orderData?.details?.[0];
+            console.info("Capture PayPal order response", orderData);
+
+            const errorDetail = orderData?.details?.[0] || orderData?.Details?.details?.[0];
 
             if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
                 return actions.restart();
             }
 
-            if (errorDetail) {
+            if (!response.ok || errorDetail) {
                 throw new Error(extractPayPalMessage(orderData, "PayPal payment failed."));
             }
 
-            const capture =
-                orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
-                orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
+            const capture = getPayPalCapture(orderData);
 
             const paymentMessage = capture
                 ? `Payment ${capture.status}: ${capture.id}`
@@ -419,6 +423,11 @@ function renderPayPalButtons() {
     }).render("#paypal-button-container");
 }
 
+function getPayPalCapture(orderData) {
+    return orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
+        orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
+}
+
 async function readJsonResponse(response) {
     const text = await response.text();
 
@@ -439,8 +448,13 @@ async function readJsonResponse(response) {
 }
 
 function extractPayPalMessage(data, fallback) {
-    const detail = data?.details?.[0];
+    const details = data?.details || data?.Details?.details;
+    const detail = Array.isArray(details) ? details[0] : null;
     if (detail?.description) return detail.description;
+    if (detail?.issue) return detail.issue;
+    if (data?.Details?.message) return data.Details.message;
+    if (data?.Details?.Message) return data.Details.Message;
+    if (data?.Message) return data.Message;
     if (data?.message) return data.message;
     if (data?.error) return data.error;
     return fallback;

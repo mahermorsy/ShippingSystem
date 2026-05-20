@@ -1,5 +1,17 @@
 ﻿@model DtoShipment
 
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+@{
+    const string fallbackPayPalClientId = "ATxIpjOz21H4-4sWp6YRU9f8OHXmMVT-p0rg9kd_dVtgDFYyQZaG5GlFZ9Q-xxGDyY16nOS3R4W-PY4M";
+    var payPalClientId = Configuration["PayPal:ClientId"];
+    if (string.IsNullOrWhiteSpace(payPalClientId) ||
+        payPalClientId.StartsWith("YOUR_", System.StringComparison.OrdinalIgnoreCase))
+    {
+        payPalClientId = fallbackPayPalClientId;
+    }
+}
+
 <div class="wshipping-content-block wshipping-breadcroumb inner-bg-1">
     <div class="container">
         <div class="row">
@@ -443,7 +455,7 @@
     <script src="~/Modules/shippingTypesService.js"></script>
 
     <script
-        src="https://www.paypal.com/sdk/js?client-id=ATxIpjOz21H4-4sWp6YRU9f8OHXmMVT-p0rg9kd_dVtgDFYyQZaG5GlFZ9Q-xxGDyY16nOS3R4W-PY4M&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card"
+        src="https://www.paypal.com/sdk/js?client-id=@payPalClientId&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card"
         data-sdk-integration-source="shipping-system-sandbox"></script>
     <script src="~/Modules/create.js" asp-append-version="true"></script>
 }

@@ -5,6 +5,10 @@
     var current_fs, next_fs, previous_fs;
     var opacity;
     var stepsForm = $(".steps");
+    var fieldsets = stepsForm.find("fieldset");
+
+    fieldsets.hide().first().show();
+    $("#progressbar li").removeClass("active").first().addClass("active");
 
     stepsForm.validate({
         errorClass: "invalid",

@@ -63,7 +63,10 @@ function getPagedResult(res) {
 function loadUserShipments(pageNumber) {
     $("#shipmentsTableBody").html(`
         <tr>
-            <td colspan="15" class="text-center">Loading shipments...</td>
+            <td colspan="15" class="shipment-loading-cell">
+                <span class="shipment-loader-dot"></span>
+                Loading shipments...
+            </td>
         </tr>
     `);
 
@@ -80,7 +83,7 @@ function loadUserShipments(pageNumber) {
     }, function () {
         $("#shipmentsTableBody").html(`
             <tr>
-                <td colspan="15" class="text-center text-danger">Error loading shipments.</td>
+                <td colspan="15" class="shipment-empty-cell text-danger">Error loading shipments.</td>
             </tr>
         `);
         renderPagination({ pageNumber: 1, totalPages: 1 });
@@ -94,7 +97,7 @@ function renderShipments(items, pageNumber, pageSize) {
     if (!items || !items.length) {
         tbody.html(`
             <tr>
-                <td colspan="15" class="text-center">No shipments found.</td>
+                <td colspan="15" class="shipment-empty-cell">No shipments found.</td>
             </tr>
         `);
         return;
@@ -104,6 +107,7 @@ function renderShipments(items, pageNumber, pageSize) {
 
     items.forEach((item, index) => {
         const currentState = Number(item.currentState ?? 0);
+        const statusText = getStatusName(currentState, item.currentState);
         const canAct = currentState <= 3;
         const editHref = canAct ? `/Shipments/Edit?ShId=${item.id}` : "javascript:void(0);";
         const editClass = canAct ? "mr-2" : "mr-2 text-muted disabled";
@@ -115,44 +119,70 @@ function renderShipments(items, pageNumber, pageSize) {
             <tr>
                 <td>${rowStart + index}</td>
                 <td>
-                    <span class="badge bg-primary">
+                    <span class="shipment-track-pill">
                         ${item.trackingNumber ? Number(item.trackingNumber).toLocaleString() : "N/A"}
                     </span>
                 </td>
                 <td>${formatDate(item.shippingDate)}</td>
                 <td>${formatDate(item.deliveryDate)}</td>
-                <td class="text-start">
+                <td class="text-left">
                     <strong>${escapeHtml(item.sender?.senderName ?? "N/A")}</strong><br />
                     <small>${escapeHtml(item.sender?.email ?? "")}</small><br />
                     <small>${escapeHtml(item.sender?.phone ?? "")}</small>
                 </td>
-                <td class="text-start">
+                <td class="text-left">
                     <strong>${escapeHtml(item.receiver?.receiverName ?? "N/A")}</strong><br />
                     <small>${escapeHtml(item.receiver?.email ?? "")}</small><br />
                     <small>${escapeHtml(item.receiver?.phone ?? "")}</small>
                 </td>
-                <td>${escapeHtml(item.shippingTypeId ?? "N/A")}</td>
-                <td>${escapeHtml(item.shippingPackagingId ?? "N/A")}</td>
-                <td>${escapeHtml(item.paymentMethodId ?? "N/A")}</td>
-                <td>${escapeHtml(item.currentState ?? "N/A")}</td>
+                <td>${formatIdentifier(item.shippingTypeId)}</td>
+                <td>${formatIdentifier(item.shippingPackagingId)}</td>
+                <td>${formatIdentifier(item.paymentMethodId)}</td>
+                <td><span class="shipment-status-pill shipment-status-${currentState}">${statusText}</span></td>
                 <td>${Number(item.weight ?? 0).toFixed(2)} kg</td>
                 <td>${Number(item.width ?? 0).toFixed(2)} x ${Number(item.height ?? 0).toFixed(2)} x ${Number(item.length ?? 0).toFixed(2)}</td>
                 <td>${Number(item.packageValue ?? 0).toFixed(2)} SAR</td>
-                <td class="text-success fw-bold">${Number(item.shippingRate ?? 0).toFixed(2)} SAR</td>
+                <td class="text-success font-weight-bold">${Number(item.shippingRate ?? 0).toFixed(2)} SAR</td>
                 <td>
-                    <a href="/Shipments/Show?ShId=${item.id}" title="View" class="mr-2">
+                    <a href="/Shipments/Show?ShId=${item.id}" title="View" class="shipment-action-link">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="${editHref}" title="${editTitle}" class="${editClass}" aria-disabled="${!canAct}">
+                    <a href="${editHref}" title="${editTitle}" class="shipment-action-link ${editClass}" aria-disabled="${!canAct}">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a href="javascript:void(0);" data-id="${item.id}" title="${deleteTitle}" class="${deleteClass}" aria-disabled="${!canAct}">
+                    <a href="javascript:void(0);" data-id="${item.id}" title="${deleteTitle}" class="shipment-action-link ${deleteClass}" aria-disabled="${!canAct}">
                         <i class="fa fa-trash"></i>
                     </a>
                 </td>
             </tr>
         `);
     });
+}
+
+function formatIdentifier(value) {
+    if (!value) {
+        return "N/A";
+    }
+
+    const text = String(value);
+    const shortText = text.length > 12 ? `${text.slice(0, 8)}...` : text;
+
+    return `<span class="shipment-guid-text" title="${escapeHtml(text)}">${escapeHtml(shortText)}</span>`;
+}
+
+function getStatusName(status, fallback) {
+    const names = {
+        0: "Created",
+        1: "Deleted",
+        2: "Approved",
+        3: "Ready",
+        4: "Shipped",
+        5: "Delivered",
+        6: "Returned",
+        7: "Cancelled"
+    };
+
+    return escapeHtml(names[status] || fallback || "N/A");
 }
 
 function renderPagination(pagedResult) {

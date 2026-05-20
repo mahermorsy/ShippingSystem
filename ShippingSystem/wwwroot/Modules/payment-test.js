@@ -15,6 +15,7 @@ function renderPaymentButtons() {
     }
 
     paymentButtonsRendered = true;
+    clearPaymentFeedback();
 
     window.paypal.Buttons({
         style: {
@@ -24,62 +25,16 @@ function renderPaymentButtons() {
             label: "paypal"
         },
 
-        async createOrder() {
+        async createOrder(data, actions) {
             const request = buildTestPaymentRequest();
-            const response = await fetch(`${ApiClient.baseUrl}/api/Payment/Create`, {
-                method: "POST",
-                headers: ApiClient.buildHeaders ? ApiClient.buildHeaders(false) : { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify(request)
-            });
-
-            const orderData = await readPaymentJsonResponse(response);
-            writePaymentDebug("Create order response", orderData);
-
-            if (!response.ok) {
-                throw new Error(extractPayPalMessage(orderData, "Could not create PayPal order."));
-            }
-
-            const orderId = orderData?.id || orderData?.orderID || orderData?.OrderID;
-            if (typeof orderId === "string" && orderId.trim()) {
-                setPaymentStatus(`PayPal order created: ${orderId}`, false);
-                return orderId;
-            }
-
-            throw new Error(extractPayPalMessage(orderData, "PayPal order response did not include an order id."));
+            setPaymentStatus("PayPal checkout is ready.", false);
+            return actions.order.create(buildPayPalOrderPayload(request));
         },
 
         async onApprove(data, actions) {
-            const request = buildTestPaymentRequest();
-            const captureRequest = {
-                orderId: data.orderID,
-                amount: request.totalAmount
-            };
+            const orderData = await actions.order.capture();
 
-            writePaymentDebug("Capture request", captureRequest);
-
-            const response = await fetch(`${ApiClient.baseUrl}/api/Payment/Capture`, {
-                method: "POST",
-                headers: ApiClient.buildHeaders ? ApiClient.buildHeaders(false) : { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify(captureRequest)
-            });
-
-            const orderData = await readPaymentJsonResponse(response);
-            writePaymentDebug("Capture response", orderData);
-
-            const errorDetail = orderData?.details?.[0] || orderData?.Details?.details?.[0];
-            if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
-                return actions.restart();
-            }
-
-            if (!response.ok || errorDetail) {
-                throw new Error(extractPayPalMessage(orderData, "PayPal payment failed."));
-            }
-
-            const capture =
-                orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
-                orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
+            const capture = getPayPalCapture(orderData);
 
             const message = capture
                 ? `Payment ${capture.status}: ${capture.id}`
@@ -90,9 +45,48 @@ function renderPaymentButtons() {
 
         onError(error) {
             console.error("PayPal checkout failed:", error);
-            setPaymentStatus(error?.message || "PayPal checkout failed.", true);
+            setPaymentStatus(getFriendlyPayPalError(error), true);
         }
     }).render("#paypal-button-container");
+}
+
+function buildPayPalOrderPayload(paymentRequest) {
+    const items = (paymentRequest.cartItems || []).map(item => ({
+        name: item.name || "Shipping Service",
+        description: item.description || "Shipment payment",
+        quantity: String(item.quantity || 1),
+        category: "PHYSICAL_GOODS",
+        unit_amount: {
+            currency_code: "USD",
+            value: formatPayPalAmount(item.price)
+        }
+    }));
+
+    return {
+        intent: "CAPTURE",
+        purchase_units: [{
+            amount: {
+                currency_code: "USD",
+                value: formatPayPalAmount(paymentRequest.totalAmount),
+                breakdown: {
+                    item_total: {
+                        currency_code: "USD",
+                        value: formatPayPalAmount(paymentRequest.totalAmount)
+                    }
+                }
+            },
+            items
+        }]
+    };
+}
+
+function formatPayPalAmount(value) {
+    return Number(value || 0).toFixed(2);
+}
+
+function getPayPalCapture(orderData) {
+    return orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
+        orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
 }
 
 function buildTestPaymentRequest() {
@@ -113,31 +107,6 @@ function buildTestPaymentRequest() {
     };
 }
 
-async function readPaymentJsonResponse(response) {
-    const text = await response.text();
-    if (!text) {
-        return {};
-    }
-
-    try {
-        return JSON.parse(text);
-    } catch (error) {
-        console.error("Invalid JSON response:", text);
-        return { message: text };
-    }
-}
-
-function extractPayPalMessage(data, fallback) {
-    const detail = data?.details?.[0] || data?.Details?.details?.[0];
-    if (detail?.description) return detail.description;
-    if (detail?.issue) return detail.issue;
-    if (data?.Message) return data.Message;
-    if (data?.message) return data.message;
-    if (data?.Details?.message) return data.Details.message;
-    if (data?.error) return data.error;
-    return fallback;
-}
-
 function setPaymentStatus(message, isError) {
     $("#paypal-result-message")
         .text(message)
@@ -145,12 +114,22 @@ function setPaymentStatus(message, isError) {
         .toggleClass("text-success", !isError);
 }
 
-function writePaymentDebug(label, data) {
-    const debugOutput = $("#paypal-debug-output");
-    const previousText = debugOutput.text();
-    const nextText = `${label}\n${JSON.stringify(data, null, 2)}`;
+function clearPaymentFeedback() {
+    $("#paypal-result-message")
+        .text("")
+        .removeClass("text-danger text-success");
 
-    debugOutput
-        .show()
-        .text(previousText ? `${previousText}\n\n${nextText}` : nextText);
+    $("#paypal-debug-output")
+        .hide()
+        .text("");
+}
+
+function getFriendlyPayPalError(error) {
+    const message = error?.message || "";
+
+    if (message.toLowerCase().includes("unauthorized")) {
+        return "PayPal refused this sandbox order. Please refresh the page and try again with a sandbox buyer account.";
+    }
+
+    return message || "PayPal checkout failed.";
 }
