@@ -87,11 +87,18 @@ Shipping Management System is a portfolio web application for creating, managing
 
 ## Screenshots
 
-### Shipment History
-![Shipment History](https://github.com/mahermorsy/ShippingSystem/blob/main/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-18%20160829.png?raw=true)
+### Admin Dashboard
+![Admin Work Flow ]([https://github.com/mahermorsy/ShippingSystem/blob/main/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-18%20160829.png?raw=true](https://github.com/mahermorsy/ShippingSystem/blob/1e4ebd637c12d9ddf0a4f770d72ecf6f9527045d/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-20%20215550.png))
 
 ### Admin Dashboard
-![Admin Dashboard](https://github.com/mahermorsy/ShippingSystem/blob/main/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-18%20161448.png?raw=true)
+![Admin Dashboard](https://github.com/mahermorsy/ShippingSystem/blob/1e4ebd637c12d9ddf0a4f770d72ecf6f9527045d/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-20%20215557.png)
+
+### Shipment History
+![Shipment History](https://github.com/mahermorsy/ShippingSystem/blob/1e4ebd637c12d9ddf0a4f770d72ecf6f9527045d/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-20%20215628.png)
+
+
+### Shipment History
+![Shipment History](https://github.com/mahermorsy/ShippingSystem/blob/1e4ebd637c12d9ddf0a4f770d72ecf6f9527045d/images/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202026-05-20%20215628.png)
 
 Add updated screenshots before publishing the repository:
 
