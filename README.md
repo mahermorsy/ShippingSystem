@@ -41,7 +41,7 @@ Shipping Management System is a portfolio web application for creating, managing
    ```json
    {
      "ConnectionStrings": {
-       "Shipping": "Server=.;Database=Shipping_DB;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False;"
+       "Shipping": "Server=.;Database=Project_ShippingDatabase;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False;"
      },
      "Jwt": {
        "Key": "YOUR_LOCAL_LONG_JWT_SIGNING_KEY"
